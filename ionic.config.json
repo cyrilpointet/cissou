@@ -1,0 +1,8 @@
+{
+  "name": "cissou",
+  "app_id": "f800b203",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
