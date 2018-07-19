@@ -1,0 +1,36 @@
+<ion-content class="secondaryBack" padding>
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+        <ion-item>
+          <ion-label stacked>Email</ion-label>
+          <ion-input formControlName="email" type="email" placeholder="Votre email" [class.invalid]="!loginForm.controls.email.valid && blur"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Mot de passe</ion-label>
+          <ion-input formControlName="password" type="password" placeholder="Mot de passe" [class.invalid]="!loginForm.controls.password.valid && blur"></ion-input>
+        </ion-item>
+
+        <button ion-button block type="submit" [disabled]="!loginForm.valid">
+          Connexion
+        </button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <button ion-button block clear (click)="goToSignup()">
+      Créer un nouveau compte
+    </button>
+
+    <button ion-button block clear (click)="goToResetPassword()">
+      Mot de passe oublié
+    </button>
+  </ion-card>
+
+  <div>
+    <p (click)="goCgu()" color="dark" class="textCenter">Conditions générales d'utilisation</p>
+  </div>
+
+</ion-content>

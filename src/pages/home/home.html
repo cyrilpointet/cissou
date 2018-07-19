@@ -1,14 +1,48 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content class="secondaryBack" padding>
+<div class="flexAround">
+  <img class="logo" src="assets/imgs/logo2.png" alt="">
+</div>
+  <ion-card>
+    <ion-card-header>
+      <h1 class="textCenter">Bonjour
+        <strong>{{user.nickName}}</strong>
+      </h1>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="flexAround">
+        <button ion-fab mini (click)="goEditProfil()">
+          <ion-icon name="build"></ion-icon>
+        </button>
+        <button ion-fab mini (click)="logout()">
+          <ion-icon name="log-out"></ion-icon>
+        </button>
+      </div>
+    </ion-card-content>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  </ion-card>
+
+  <ion-card padding>
+    <ion-card-header class="textCenter">Bébés</ion-card-header>
+    <ion-card-content>
+      <ion-list *ngIf="user.babies.length>0">
+        <ion-item *ngFor="let baby of user.babies; index as i" (click)="goBabyHome(i)">
+          <p>{{baby.name}}</p>
+          <p>Né(e) le: {{baby.getBirhDate()}}</p>
+        </ion-item>
+      </ion-list>
+      <ion-item *ngIf="user.babies.length==0">
+        <p>Pas encore de bébé</p>
+      </ion-item>
+      <div class="flexAround">
+        <button ion-fab (click)="goAddBaby()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div>
+    <p (click)="goCgu()" color="dark" class="textCenter">Conditions générales d'utilisation</p>
+  </div>
+  
 </ion-content>
