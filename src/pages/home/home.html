@@ -1,7 +1,31 @@
 <ion-content class="secondaryBack" padding>
-<div class="flexAround">
-  <img class="logo" src="assets/imgs/logo2.png" alt="">
-</div>
+  <div class="flexAround">
+    <img class="logo" src="assets/imgs/logo2.svg" alt="logo">
+  </div>
+
+  <ion-card padding>
+    <ion-card-header class="textCenter">Bébés</ion-card-header>
+    <ion-card-content>
+      <ion-list *ngIf="user.babies.length>0">
+        <ion-item *ngFor="let baby of user.babies; index as i" (click)="goBabyHome(i)">
+          <ion-thumbnail item-start>
+            <img [src]="getAvatar(i)">
+          </ion-thumbnail>
+          <p>{{baby.name}}</p>
+          <p>Né(e) le: {{baby.getBirhDate()}}</p>
+        </ion-item>
+      </ion-list>
+      <ion-item *ngIf="user.babies.length==0">
+        <p>Pas encore de bébé</p>
+      </ion-item>
+      <div class="flexAround">
+        <button ion-fab (click)="goAddBaby()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
   <ion-card>
     <ion-card-header>
       <h1 class="textCenter">Bonjour
@@ -18,31 +42,10 @@
         </button>
       </div>
     </ion-card-content>
-
-  </ion-card>
-
-  <ion-card padding>
-    <ion-card-header class="textCenter">Bébés</ion-card-header>
-    <ion-card-content>
-      <ion-list *ngIf="user.babies.length>0">
-        <ion-item *ngFor="let baby of user.babies; index as i" (click)="goBabyHome(i)">
-          <p>{{baby.name}}</p>
-          <p>Né(e) le: {{baby.getBirhDate()}}</p>
-        </ion-item>
-      </ion-list>
-      <ion-item *ngIf="user.babies.length==0">
-        <p>Pas encore de bébé</p>
-      </ion-item>
-      <div class="flexAround">
-        <button ion-fab (click)="goAddBaby()">
-          <ion-icon name="add"></ion-icon>
-        </button>
-      </div>
-    </ion-card-content>
   </ion-card>
 
   <div>
     <p (click)="goCgu()" color="dark" class="textCenter">Conditions générales d'utilisation</p>
   </div>
-  
+
 </ion-content>

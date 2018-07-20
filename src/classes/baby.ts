@@ -35,7 +35,8 @@ export class Baby {
         this.allergy = newBaby.allergy;
         this.note = newBaby.note;
         this.trustedPeople = newBaby.trustedPeople;
-        this.calendar = newBaby.calendar
+        this.calendar = newBaby.calendar;
+        this.avatar = newBaby.avatar;
     }
 
     getBirhDate() {

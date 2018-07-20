@@ -8,6 +8,7 @@
 
 
 <ion-content class="secondaryBack" padding>
+
   <ion-card padding>
     <ion-card-content>
       <ion-item>
@@ -19,6 +20,12 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
+
+  <div class="flexAround">
+    <button (click)="takePicture()" ion-fab>
+      <ion-icon name="camera"></ion-icon>
+    </button>
+  </div>
 
   <ion-card padding>
     <ion-card-content>

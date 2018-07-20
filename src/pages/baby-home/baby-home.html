@@ -40,13 +40,14 @@
         </p>
         <p>
           <strong>Note:</strong> {{user.currentBaby.note}} </p>
-        <div *ngIf="user.uid==user.currentBaby.motherId" class="flexAround">
-          <button ion-fab mini (click)="goEditBaby()">
-            <ion-icon name="build"></ion-icon>
-          </button>
-        </div>
       </div>
 
+      <div *ngIf="user.uid==user.currentBaby.motherId" class="flexAround">
+        <button ion-fab mini (click)="goEditBaby()">
+          <ion-icon name="build"></ion-icon>
+        </button>
+      </div>
+      
     </ion-card-content>
   </ion-card>
 

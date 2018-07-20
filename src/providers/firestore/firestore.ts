@@ -17,7 +17,6 @@ export class FirestoreProvider {
   };
   private db: any;
 
-
   constructor() {
     console.log('Hello FirestoreProvider Provider');
   }

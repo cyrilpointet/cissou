@@ -56,7 +56,11 @@ export class BabyHomePage {
   }
 
   getAvatar(){
-    return "assets/imgs/default.jpg"
+    if (this.user.currentBaby.avatar == "default") {
+      return "assets/imgs/default.jpg";
+    } else {
+      return this.user.currentBaby.avatar;
+    }
   }
 
   accordion(){

@@ -6,8 +6,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 // Modules et plugins
 import { NgCalendarModule  } from 'ionic2-calendar';
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
+// Plugins
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { Camera } from '@ionic-native/camera';
+import { Crop } from "@ionic-native/crop";
 
 // Components
 import { MyApp } from './app.component';
@@ -56,7 +59,9 @@ registerLocaleData(localeFr);
     AuthProvider,
     UserProvider,
     FirestoreProvider,
-    ScreenOrientation
+    ScreenOrientation,
+    Camera,
+    Crop
   ]
 })
 export class AppModule { }

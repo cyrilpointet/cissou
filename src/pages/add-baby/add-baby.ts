@@ -22,7 +22,7 @@ export class AddBabyPage {
     birthDate: parseInt(moment().locale('fr').format('x')),
     allergy: [],
     note: "",
-    avatar: 'defaut',
+    avatar: 'default',
     trustedPeople: [],
     calendar: [],
   };
