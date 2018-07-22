@@ -9,7 +9,7 @@
 
 <ion-content class="secondaryBack" padding>
 
-  <ion-card padding>
+  <ion-card>
     <ion-card-content>
       <ion-item>
         <ion-thumbnail item-start>
@@ -18,18 +18,16 @@
         <ion-label stacked>Date de naissance</ion-label>
         <ion-datetime cancelText="Annuler" doneText="Ok" displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="birthdate"></ion-datetime>
       </ion-item>
-    </ion-card-content>
-  </ion-card>
 
-  <div class="flexAround">
-    <button (click)="takePicture()" ion-fab>
-      <ion-icon name="camera"></ion-icon>
-    </button>
-  </div>
-
-  <ion-card padding>
-    <ion-card-content>
-      <ion-list>
+      <ion-item class="bottomBorder">
+        <div class="flexAround">
+          <button (click)="takePicture()" ion-button small round>
+            <ion-icon name="camera"></ion-icon>
+          </button>
+        </div>
+      </ion-item>
+    
+      <ion-list class="bottomBorder">
         <p>Allergie(s) connue(s)</p>
         <ion-item *ngFor="let allergyDetail of newBaby.allergy; index as i">
           <p>{{allergyDetail}}</p>
@@ -41,22 +39,14 @@
           <button (click)="addAllergy()" ion-button small>Ajouter</button>
         </div>
       </ion-list>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card padding>
-    <ion-card-content>
-      <ion-item>
+  
+      <ion-item class="bottomBorder">
         <ion-label stacked>Note:</ion-label>
         <ion-textarea [(ngModel)]="newBaby.note"></ion-textarea>
       </ion-item>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card padding>
-    <ion-card-content>
+  
       <ion-list>
-        <p>Personnes de confiance</p>
+        <p style="margin-top: 0.5rem">Personne(s) de confiance</p>
         <ion-item *ngFor="let trustedPeople of newBaby.trustedPeople; index as i">
           <p>{{trustedPeople.nickName}}</p>
           <button ion-button item-end small color="danger" (click)="removeTrustedPeople(i)">

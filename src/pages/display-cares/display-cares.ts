@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 // Providers
 import { UserProvider } from '../../providers/user/user';
@@ -74,12 +74,13 @@ export class DisplayCaresPage {
 
   careType: string;
   displayDate: number;
-  timeScale: string; 
+  timeScale: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private user: UserProvider
+    private user: UserProvider,
+    private alertCtrl: AlertController
   ) {
     this.careType = navParams.get('careType');
     this.timeScale = 'week';
@@ -100,8 +101,8 @@ export class DisplayCaresPage {
     this.prepareData();
   }
 
-  editCare(care){
-    this.navCtrl.push('EditCarePage', { care: care, careType: this.careType})
+  editCare(care) {
+    this.navCtrl.push('EditCarePage', { care: care, careType: this.careType })
   }
 
 
@@ -236,6 +237,430 @@ export class DisplayCaresPage {
       }
 
     });
+  }
+
+  /********************************************************************************** */
+  /* Manage New Cares */
+  /********************************************************************************** */
+
+  newCare() {
+    switch (this.careType) {
+      case 'milk':
+        this.newMilk();
+        break;
+
+      case 'water':
+        this.newWater();
+        break;
+
+      case 'bath':
+        this.newBath();
+        break;
+
+      case 'nappy':
+        this.newNappy();
+        break;
+
+      case 'sleep':
+        this.newSleep();
+        break;
+
+      case 'comment':
+        this.newComment();
+        break;
+
+      case 'meal':
+        this.newMeal();
+        break;
+
+      case 'weight':
+        this.newWeight();
+        break;
+
+      case 'size':
+        this.newSize();
+        break;
+
+      case 'temperature':
+        this.newTemperature();
+        break;
+
+      default:
+        console.log('error careType')
+        break;
+    }
+  }
+
+  newMilk() {
+    const prompt = this.alertCtrl.create({
+      title: 'Biberon de lait',
+      message: "Quantité en ml",
+      inputs: [
+        {
+          name: 'qte',
+          placeholder: 'Quantité en ml',
+          type: 'number'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            if (data.qte != "") {
+              data.qte = parseInt(data.qte);
+              this.user.newCare('milk', data).then(()=>{
+                setTimeout(() => {
+                  this.prepareData();
+                }, 1000);
+              });
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  newWater() {
+    const prompt = this.alertCtrl.create({
+      title: "Biberon d'eau",
+      message: "Quantité en ml",
+      inputs: [
+        {
+          name: 'qte',
+          placeholder: 'Quantité en ml',
+          type: 'number'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            if (data.qte != "") {
+              data.qte = parseInt(data.qte);
+              this.user.newCare('water', data).then(()=>{
+                setTimeout(() => {
+                  this.prepareData();
+                }, 1000);
+              });
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  newBath() {
+    const prompt = this.alertCtrl.create({
+      title: "Nouveau bain",
+      inputs: [],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            data = {}
+            this.user.newCare('bath', data).then(()=>{
+              setTimeout(() => {
+                this.prepareData();
+              }, 1000);
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  newNappy() {
+    let newNappy = {
+      urine: false,
+      stool: false,
+      diarrhoea: false
+    }
+    const prompt = this.alertCtrl.create();
+    prompt.setTitle('Présence dans le change:');
+    prompt.addInput({
+      type: 'checkbox',
+      label: 'urine',
+      value: 'urine',
+      checked: false
+    });
+    prompt.addInput({
+      type: 'checkbox',
+      label: 'selles',
+      value: 'stool',
+      checked: false
+    });
+    prompt.addInput({
+      type: 'checkbox',
+      label: 'diarrhée',
+      value: 'diarrhoea',
+      checked: false
+    });
+    prompt.addButton('Annuler');
+    prompt.addButton({
+      text: 'Ok',
+      handler: data => {
+        if (data.indexOf('urine') > -1) {
+          newNappy.urine = true
+        };
+        if (data.indexOf('stool') > -1) {
+          newNappy.stool = true
+        };
+        if (data.indexOf('diarrhoea') > -1) {
+          newNappy.diarrhoea = true
+        };
+        this.user.newCare('nappy', newNappy).then(()=>{
+          setTimeout(() => {
+            this.prepareData();
+          }, 1000);
+        });
+      }
+    });
+    prompt.present();
+  }
+
+  newSleep() {
+    const prompt = this.alertCtrl.create({
+      title: 'Sommeil',
+      message: "Durée",
+      inputs: [
+        {
+          name: 'hour',
+          placeholder: 'heure(s)',
+          type: 'number'
+        },
+        {
+          name: 'minute',
+          placeholder: 'minute(s)',
+          type: 'number'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            data.hour = parseInt(data.hour);
+            data.minute = parseInt(data.minute);
+            let duration = moment.duration(data.hour, 'hours');
+            duration.add(data.minute, 'minutes');
+            let newSleep = { duration: moment.duration(duration).asMilliseconds() };
+            console.log(newSleep);
+            this.user.newCare('sleep', newSleep).then(()=>{
+              setTimeout(() => {
+                this.prepareData();
+              }, 1000);
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  newComment() {
+    const prompt = this.alertCtrl.create({
+      title: "Commentaire",
+      message: "Remarques diverses",
+      inputs: [
+        {
+          name: 'content',
+          placeholder: 'Commentaire',
+          type: 'text'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            if (data.content != "") {
+              this.user.newCare('comment', data).then(()=>{
+                setTimeout(() => {
+                  this.prepareData();
+                }, 1000);
+              });
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  newMeal() {
+    const prompt = this.alertCtrl.create({
+      title: "Repas solide",
+      message: "Contenu du repas",
+      inputs: [
+        {
+          name: 'content',
+          placeholder: 'Contenu',
+          type: 'text'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            if (data.content != "") {
+              this.user.newCare('meal', data).then(()=>{
+                setTimeout(() => {
+                  this.prepareData();
+                }, 1000);
+              });
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  newWeight() {
+    const prompt = this.alertCtrl.create({
+      title: 'Pesée',
+      message: "Poids en kg",
+      inputs: [
+        {
+          name: 'qte',
+          placeholder: 'kg',
+          type: 'number'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            if (data.qte != "") {
+              console.log(data.qte);
+              data.qte = parseFloat(data.qte);
+              console.log(data.qte);
+              this.user.newCare('weight', data).then(()=>{
+                setTimeout(() => {
+                  this.prepareData();
+                }, 1000);
+              });
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  newSize() {
+    const prompt = this.alertCtrl.create({
+      title: 'Taille',
+      message: "Taille en cm",
+      inputs: [
+        {
+          name: 'qte',
+          placeholder: 'cm',
+          type: 'number'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            if (data.qte != "") {
+              data.qte = parseInt(data.qte);
+              this.user.newCare('size', data).then(()=>{
+                setTimeout(() => {
+                  this.prepareData();
+                }, 1000);
+              });
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  newTemperature() {
+    const prompt = this.alertCtrl.create({
+      title: 'Température',
+      message: "en °C",
+      inputs: [
+        {
+          name: 'qte',
+          placeholder: '°C',
+          type: 'number'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            if (data.qte != "") {
+              data.qte = parseFloat(data.qte);
+              this.user.newCare('temperature', data).then(()=>{
+                setTimeout(() => {
+                  this.prepareData();
+                }, 1000);
+              });
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
 }

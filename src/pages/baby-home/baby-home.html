@@ -11,7 +11,7 @@
   <ion-card>
     <ion-card-content>
 
-      <ion-item>
+      <ion-item class="bottomBorder">
         <ion-thumbnail item-start>
           <img [src]="getAvatar()">
         </ion-thumbnail>
@@ -19,14 +19,7 @@
         <p>Né(e) le: {{user.currentBaby.getBirhDate()}}</p>
       </ion-item>
 
-      <p class="textCenter turning">
-        <ion-icon (click)="accordion()" name="arrow-down"></ion-icon>
-      </p>
-      <p class="textCenter turning off">
-        <ion-icon (click)="accordion()" name="arrow-up"></ion-icon>
-      </p>
-
-      <div class="accordion">
+      <div class="accordion bottomBorder">
         <p>
           <strong>Responsable: {{motherName}} </strong>
         </p>
@@ -42,9 +35,15 @@
           <strong>Note:</strong> {{user.currentBaby.note}} </p>
       </div>
 
-      <div *ngIf="user.uid==user.currentBaby.motherId" class="flexAround">
-        <button ion-fab mini (click)="goEditBaby()">
+      <div class="flexAround">
+        <button *ngIf="user.uid==user.currentBaby.motherId" ion-fab mini (click)="goEditBaby()">
           <ion-icon name="build"></ion-icon>
+        </button>
+        <button ion-fab mini (click)="accordion()" class="turning">
+          <ion-icon  name="arrow-down"></ion-icon>
+        </button>
+        <button ion-fab mini (click)="accordion()" class="turning off">
+          <ion-icon name="arrow-up"></ion-icon>
         </button>
       </div>
       
@@ -81,7 +80,7 @@
       <br>
 
       <!--******************* Milk *****************************************************************************-->
-      <div class="lastCare">
+      <div class="lastCare" (click)="goDisplayCares('milk')">
         <p *ngIf="user.currentBaby.milk.length>0">
           <i class="flaticon-milk"></i>
           <strong>{{user.currentBaby.milk[0].qte}}ml</strong> {{getDateFromNow(user.currentBaby.milk[0].createDate)}} par
@@ -93,7 +92,7 @@
       </div>
 
       <!--******************* water *****************************************************************************-->
-      <div class="lastCare">
+      <div class="lastCare" (click)="goDisplayCares('water')">
         <p *ngIf="user.currentBaby.water.length>0">
           <i class="flaticon-water"></i>
           <strong>{{user.currentBaby.water[0].qte}}ml</strong> {{getDateFromNow(user.currentBaby.water[0].createDate)}} par
@@ -105,7 +104,7 @@
       </div>
 
       <!--******************* meal *****************************************************************************-->
-      <div class="lastCare">
+      <div class="lastCare" (click)="goDisplayCares('meal')">
         <p *ngIf="user.currentBaby.meal.length>0">
           <ion-icon name="restaurant"></ion-icon> {{getDateFromNow(user.currentBaby.meal[0].createDate)}} par
           <strong>{{user.currentBaby.meal[0].carerName}}</strong>:</p>
@@ -116,7 +115,7 @@
       </div>
 
       <!--******************* nappy *****************************************************************************-->
-      <div class="lastCare">
+      <div class="lastCare" (click)="goDisplayCares('nappy')">
         <p *ngIf="user.currentBaby.nappy.length>0">
           <i class="flaticon-nappy"></i> {{getDateFromNow(user.currentBaby.nappy[0].createDate)}} par
           <strong>{{user.currentBaby.nappy[0].carerName}}</strong> (
@@ -130,7 +129,7 @@
       </div>
 
       <!--******************* bath *****************************************************************************-->
-      <div class="lastCare">
+      <div class="lastCare" (click)="goDisplayCares('bath')">
         <p *ngIf="user.currentBaby.bath.length>0">
           <i class="flaticon-bath"></i> {{getDateFromNow(user.currentBaby.bath[0].createDate)}} par
           <strong>{{user.currentBaby.bath[0].carerName}}</strong>
@@ -141,7 +140,7 @@
       </div>
 
       <!--******************* sleep *****************************************************************************-->
-      <div class="lastCare">
+      <div class="lastCare" (click)="goDisplayCares('sleep')">
         <p *ngIf="user.currentBaby.sleep.length>0">
           <i class="flaticon-sleep"></i> {{getDateFromNow(user.currentBaby.sleep[0].createDate)}} par
           <strong>{{user.currentBaby.sleep[0].carerName}}</strong> durée {{getDuration(user.currentBaby.sleep[0].duration)}}
@@ -152,7 +151,7 @@
       </div>
 
       <!--******************* weight *****************************************************************************-->
-      <div class="lastCare">
+      <div class="lastCare" (click)="goDisplayCares('weight')">
         <p *ngIf="user.currentBaby.weight.length>0">
           <i class="flaticon-weight"></i>
           <strong>{{user.currentBaby.weight[0].qte}}kg</strong> {{getDateFromNow(user.currentBaby.weight[0].createDate)}} par
@@ -164,7 +163,7 @@
       </div>
 
       <!--******************* size *****************************************************************************-->
-      <div class="lastCare">
+      <div class="lastCare" (click)="goDisplayCares('size')">
         <p *ngIf="user.currentBaby.size.length>0">
           <ion-icon name="resize"></ion-icon>
           <strong>{{user.currentBaby.size[0].qte}}cm</strong> {{getDateFromNow(user.currentBaby.size[0].createDate)}} par
@@ -176,7 +175,7 @@
       </div>
 
       <!--******************* temperature *****************************************************************************-->
-      <div class="lastCare">
+      <div class="lastCare" (click)="goDisplayCares('temperature')">
         <p *ngIf="user.currentBaby.temperature.length>0">
           <i class="flaticon-temperature"></i>
           <strong>{{user.currentBaby.temperature[0].qte}}°C</strong> {{getDateFromNow(user.currentBaby.temperature[0].createDate)}}
@@ -189,7 +188,7 @@
       </div>
 
       <!--******************* comment *****************************************************************************-->
-      <div class="lastCare">
+      <div class="lastCare" (click)="goDisplayCares('comment')">
         <p *ngIf="user.currentBaby.comment.length>0">
           <i class="flaticon-comment"></i> {{getDateFromNow(user.currentBaby.comment[0].createDate)}} par
           <strong>{{user.currentBaby.comment[0].carerName}}</strong>:</p>

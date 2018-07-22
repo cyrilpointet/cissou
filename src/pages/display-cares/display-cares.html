@@ -68,6 +68,9 @@
 
   <ion-card padding>
     <h2 class="textCenter">{{getTitle()}}</h2>
+    <div class="flexAround">
+      <button ion-button small (click)="newCare()" >Ajouter</button>
+    </div>
 
     <ion-list *ngIf="careType=='milk'">
       <span *ngFor="let milk of user.currentBaby.milk">
