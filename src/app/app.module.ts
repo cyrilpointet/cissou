@@ -11,6 +11,8 @@ import { NgCalendarModule  } from 'ionic2-calendar';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Camera } from '@ionic-native/camera';
 import { Crop } from "@ionic-native/crop";
+import { File } from '@ionic-native/file';
+import { FileOpener } from '@ionic-native/file-opener';
 
 // Components
 import { MyApp } from './app.component';
@@ -29,6 +31,7 @@ import { FirestoreProvider } from '../providers/firestore/firestore';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 registerLocaleData(localeFr);
+import { PdfProvider } from '../providers/pdf/pdf';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,10 @@ registerLocaleData(localeFr);
     FirestoreProvider,
     ScreenOrientation,
     Camera,
-    Crop
+    Crop,
+    PdfProvider,
+    File,
+    FileOpener
   ]
 })
 export class AppModule { }

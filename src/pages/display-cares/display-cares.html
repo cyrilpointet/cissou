@@ -57,7 +57,7 @@
       <button (click)="setTimeScale('month')" ion-button small [outline]="timeScale=='month'? false:true">
         1 mois
       </button>
-      <button (click)="setTimeScale('')" ion-button small [outline]="timeScale==''? false:true">
+      <button (click)="setTimeScale('birth')" ion-button small [outline]="timeScale==''? false:true">
         Tous
       </button>
     </div>
@@ -70,6 +70,7 @@
     <h2 class="textCenter">{{getTitle()}}</h2>
     <div class="flexAround">
       <button ion-button small (click)="newCare()" >Ajouter</button>
+      <button ion-button small (click)="createPdf()" >Export pdf</button>
     </div>
 
     <ion-list *ngIf="careType=='milk'">

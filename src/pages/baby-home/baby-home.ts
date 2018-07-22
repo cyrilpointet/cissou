@@ -1,24 +1,39 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular';
+import { Component } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController,
+  ActionSheetController
+} from "ionic-angular";
 
-import { UserProvider } from '../../providers/user/user';
+import { UserProvider } from "../../providers/user/user";
 
-import { CalendarPage } from '../calendar/calendar';
+import { CalendarPage } from "../calendar/calendar";
 
-
-import * as moment from 'moment';
-import * as $ from 'jquery';
+import * as moment from "moment";
+import * as $ from "jquery";
 
 @IonicPage()
 @Component({
-  selector: 'page-baby-home',
-  templateUrl: 'baby-home.html',
+  selector: "page-baby-home",
+  templateUrl: "baby-home.html"
 })
 export class BabyHomePage {
-
-  careList = ['milk', 'water', 'bath', 'nappy', 'sleep', 'comment', 'size', 'meal', 'temperature', 'weight'];
-  loadedCare:number = 0;
-  motherName:string;
+  careList = [
+    "milk",
+    "water",
+    "bath",
+    "nappy",
+    "sleep",
+    "comment",
+    "size",
+    "meal",
+    "temperature",
+    "weight"
+  ];
+  loadedCare: number = 0;
+  motherName: string;
 
   constructor(
     public navCtrl: NavController,
@@ -26,36 +41,41 @@ export class BabyHomePage {
     private alertCtrl: AlertController,
     private user: UserProvider,
     private actionSheetCtrl: ActionSheetController
-  ) {
-
-
-  }
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BabyHomePage');
+    console.log("ionViewDidLoad BabyHomePage");
   }
 
   ionViewWillEnter() {
     this.getAllCares(this.careList);
-    this.user.getMumName().then(resp=>{
+    this.user.getMumName().then(resp => {
       console.log(resp.data());
       this.motherName = resp.data().nickName;
-    })
+    });
   }
 
   /******************** Utilities *********************************************/
   getDateFromNow(date) {
-    let displayDate = moment(date).locale('fr').fromNow();
-    return displayDate
+    let displayDate = moment(date)
+      .locale("fr")
+      .fromNow();
+    return displayDate;
   }
 
   getDuration(duration) {
-    let minutes = moment.duration(duration).locale('fr').minutes();
-    let hours = moment.duration(duration).locale('fr').hours();
-    return ` ${hours}h${minutes}m`
+    let minutes = moment
+      .duration(duration)
+      .locale("fr")
+      .minutes();
+    let hours = moment
+      .duration(duration)
+      .locale("fr")
+      .hours();
+    return ` ${hours}h${minutes}m`;
   }
 
-  getAvatar(){
+  getAvatar() {
     if (this.user.currentBaby.avatar == "default") {
       return "assets/imgs/default.jpg";
     } else {
@@ -63,27 +83,26 @@ export class BabyHomePage {
     }
   }
 
-  accordion(){
-    $('.accordion').toggle(300);
-    $('.turning').toggle();
+  accordion() {
+    $(".accordion").toggle(300);
+    $(".turning").toggle();
   }
 
   /******************** Cares management *********************************************/
 
-  getAllCares(careList){
+  getAllCares(careList) {
     this.user.loadedCares = 0;
     careList.forEach(element => {
       this.user.getCares(element);
     });
   }
 
-
   newCare() {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Nouveau soin',
+      title: "Nouveau soin",
       buttons: [
         {
-          text: 'Téte / Biberon de lait',
+          text: "Téte / Biberon de lait",
           handler: () => {
             this.newMilk();
           }
@@ -95,89 +114,88 @@ export class BabyHomePage {
           }
         },
         {
-          text: 'Repas solide',
+          text: "Repas solide",
           handler: () => {
             this.newMeal();
           }
         },
         {
-          text: 'Change',
+          text: "Change",
           handler: () => {
             this.newNappy();
           }
         },
         {
-          text: 'Bain',
+          text: "Bain",
           handler: () => {
             this.newBath();
           }
         },
         {
-          text: 'Sommeil',
+          text: "Sommeil",
           handler: () => {
             this.newSleep();
           }
         },
         {
-          text: 'Pesée',
+          text: "Pesée",
           handler: () => {
             this.newWeight();
           }
         },
         {
-          text: 'Taille',
+          text: "Taille",
           handler: () => {
             this.newSize();
           }
         },
         {
-          text: 'Température',
+          text: "Température",
           handler: () => {
             this.newTemperature();
           }
         },
         {
-          text: 'Commentaire',
+          text: "Commentaire",
           handler: () => {
             this.newComment();
           }
         },
         {
-          text: 'Annuler',
+          text: "Annuler",
           handler: () => {
-            console.log('Cancel clicked');
+            console.log("Cancel clicked");
           }
         }
       ]
     });
     actionSheet.present();
-
   }
 
   newMilk() {
     const prompt = this.alertCtrl.create({
-      title: 'Biberon de lait',
+      title: "Biberon de lait",
       message: "Quantité en ml",
       inputs: [
         {
-          name: 'qte',
-          placeholder: 'Quantité en ml',
-          type: 'number'
-        },
+          name: "qte",
+          placeholder: "Quantité en ml",
+          type: "number"
+        }
       ],
       buttons: [
         {
-          text: 'Annuler',
+          text: "Annuler",
           handler: data => {
-            console.log('Cancel clicked');
+            console.log("Cancel clicked");
           }
         },
         {
-          text: 'Ok',
+          text: "Ok",
           handler: data => {
             if (data.qte != "") {
               data.qte = parseInt(data.qte);
-              this.user.newCare('milk', data);
+              this.user.newCare("milk", data);
             }
           }
         }
@@ -192,24 +210,24 @@ export class BabyHomePage {
       message: "Quantité en ml",
       inputs: [
         {
-          name: 'qte',
-          placeholder: 'Quantité en ml',
-          type: 'number'
-        },
+          name: "qte",
+          placeholder: "Quantité en ml",
+          type: "number"
+        }
       ],
       buttons: [
         {
-          text: 'Annuler',
+          text: "Annuler",
           handler: data => {
-            console.log('Cancel clicked');
+            console.log("Cancel clicked");
           }
         },
         {
-          text: 'Ok',
+          text: "Ok",
           handler: data => {
             if (data.qte != "") {
               data.qte = parseInt(data.qte);
-              this.user.newCare('water', data);
+              this.user.newCare("water", data);
             }
           }
         }
@@ -224,16 +242,16 @@ export class BabyHomePage {
       inputs: [],
       buttons: [
         {
-          text: 'Annuler',
+          text: "Annuler",
           handler: data => {
-            console.log('Cancel clicked');
+            console.log("Cancel clicked");
           }
         },
         {
-          text: 'Ok',
+          text: "Ok",
           handler: data => {
-            data = {}
-            this.user.newCare('bath', data);
+            data = {};
+            this.user.newCare("bath", data);
           }
         }
       ]
@@ -246,41 +264,41 @@ export class BabyHomePage {
       urine: false,
       stool: false,
       diarrhoea: false
-    }
+    };
     const prompt = this.alertCtrl.create();
-    prompt.setTitle('Présence dans le change:');
+    prompt.setTitle("Présence dans le change:");
     prompt.addInput({
-      type: 'checkbox',
-      label: 'urine',
-      value: 'urine',
+      type: "checkbox",
+      label: "urine",
+      value: "urine",
       checked: false
     });
     prompt.addInput({
-      type: 'checkbox',
-      label: 'selles',
-      value: 'stool',
+      type: "checkbox",
+      label: "selles",
+      value: "stool",
       checked: false
     });
     prompt.addInput({
-      type: 'checkbox',
-      label: 'diarrhée',
-      value: 'diarrhoea',
+      type: "checkbox",
+      label: "diarrhée",
+      value: "diarrhoea",
       checked: false
     });
-    prompt.addButton('Annuler');
+    prompt.addButton("Annuler");
     prompt.addButton({
-      text: 'Ok',
+      text: "Ok",
       handler: data => {
-        if (data.indexOf('urine') > -1) {
-          newNappy.urine = true
-        };
-        if (data.indexOf('stool') > -1) {
-          newNappy.stool = true
-        };
-        if (data.indexOf('diarrhoea') > -1) {
-          newNappy.diarrhoea = true
-        };
-        this.user.newCare('nappy', newNappy);
+        if (data.indexOf("urine") > -1) {
+          newNappy.urine = true;
+        }
+        if (data.indexOf("stool") > -1) {
+          newNappy.stool = true;
+        }
+        if (data.indexOf("diarrhoea") > -1) {
+          newNappy.diarrhoea = true;
+        }
+        this.user.newCare("nappy", newNappy);
       }
     });
     prompt.present();
@@ -288,37 +306,39 @@ export class BabyHomePage {
 
   newSleep() {
     const prompt = this.alertCtrl.create({
-      title: 'Sommeil',
+      title: "Sommeil",
       message: "Durée",
       inputs: [
         {
-          name: 'hour',
-          placeholder: 'heure(s)',
-          type: 'number'
+          name: "hour",
+          placeholder: "heure(s)",
+          type: "number"
         },
         {
-          name: 'minute',
-          placeholder: 'minute(s)',
-          type: 'number'
-        },
+          name: "minute",
+          placeholder: "minute(s)",
+          type: "number"
+        }
       ],
       buttons: [
         {
-          text: 'Annuler',
+          text: "Annuler",
           handler: data => {
-            console.log('Cancel clicked');
+            console.log("Cancel clicked");
           }
         },
         {
-          text: 'Ok',
+          text: "Ok",
           handler: data => {
             data.hour = parseInt(data.hour);
             data.minute = parseInt(data.minute);
-            let duration = moment.duration(data.hour, 'hours');
-            duration.add(data.minute, 'minutes');
-            let newSleep = { duration: moment.duration(duration).asMilliseconds() };
+            let duration = moment.duration(data.hour, "hours");
+            duration.add(data.minute, "minutes");
+            let newSleep = {
+              duration: moment.duration(duration).asMilliseconds()
+            };
             console.log(newSleep);
-            this.user.newCare('sleep', newSleep);
+            this.user.newCare("sleep", newSleep);
           }
         }
       ]
@@ -332,23 +352,23 @@ export class BabyHomePage {
       message: "Remarques diverses",
       inputs: [
         {
-          name: 'content',
-          placeholder: 'Commentaire',
-          type: 'text'
-        },
+          name: "content",
+          placeholder: "Commentaire",
+          type: "text"
+        }
       ],
       buttons: [
         {
-          text: 'Annuler',
+          text: "Annuler",
           handler: data => {
-            console.log('Cancel clicked');
+            console.log("Cancel clicked");
           }
         },
         {
-          text: 'Ok',
+          text: "Ok",
           handler: data => {
             if (data.content != "") {
-              this.user.newCare('comment', data);
+              this.user.newCare("comment", data);
             }
           }
         }
@@ -363,23 +383,23 @@ export class BabyHomePage {
       message: "Contenu du repas",
       inputs: [
         {
-          name: 'content',
-          placeholder: 'Contenu',
-          type: 'text'
-        },
+          name: "content",
+          placeholder: "Contenu",
+          type: "text"
+        }
       ],
       buttons: [
         {
-          text: 'Annuler',
+          text: "Annuler",
           handler: data => {
-            console.log('Cancel clicked');
+            console.log("Cancel clicked");
           }
         },
         {
-          text: 'Ok',
+          text: "Ok",
           handler: data => {
             if (data.content != "") {
-              this.user.newCare('meal', data);
+              this.user.newCare("meal", data);
             }
           }
         }
@@ -390,30 +410,30 @@ export class BabyHomePage {
 
   newWeight() {
     const prompt = this.alertCtrl.create({
-      title: 'Pesée',
+      title: "Pesée",
       message: "Poids en kg",
       inputs: [
         {
-          name: 'qte',
-          placeholder: 'kg',
-          type: 'number'
-        },
+          name: "qte",
+          placeholder: "kg",
+          type: "number"
+        }
       ],
       buttons: [
         {
-          text: 'Annuler',
+          text: "Annuler",
           handler: data => {
-            console.log('Cancel clicked');
+            console.log("Cancel clicked");
           }
         },
         {
-          text: 'Ok',
+          text: "Ok",
           handler: data => {
             if (data.qte != "") {
               console.log(data.qte);
               data.qte = parseFloat(data.qte);
               console.log(data.qte);
-              this.user.newCare('weight', data);
+              this.user.newCare("weight", data);
             }
           }
         }
@@ -424,28 +444,28 @@ export class BabyHomePage {
 
   newSize() {
     const prompt = this.alertCtrl.create({
-      title: 'Taille',
+      title: "Taille",
       message: "Taille en cm",
       inputs: [
         {
-          name: 'qte',
-          placeholder: 'cm',
-          type: 'number'
-        },
+          name: "qte",
+          placeholder: "cm",
+          type: "number"
+        }
       ],
       buttons: [
         {
-          text: 'Annuler',
+          text: "Annuler",
           handler: data => {
-            console.log('Cancel clicked');
+            console.log("Cancel clicked");
           }
         },
         {
-          text: 'Ok',
+          text: "Ok",
           handler: data => {
             if (data.qte != "") {
               data.qte = parseInt(data.qte);
-              this.user.newCare('size', data);
+              this.user.newCare("size", data);
             }
           }
         }
@@ -456,28 +476,28 @@ export class BabyHomePage {
 
   newTemperature() {
     const prompt = this.alertCtrl.create({
-      title: 'Température',
+      title: "Température",
       message: "en °C",
       inputs: [
         {
-          name: 'qte',
-          placeholder: '°C',
-          type: 'number'
-        },
+          name: "qte",
+          placeholder: "°C",
+          type: "number"
+        }
       ],
       buttons: [
         {
-          text: 'Annuler',
+          text: "Annuler",
           handler: data => {
-            console.log('Cancel clicked');
+            console.log("Cancel clicked");
           }
         },
         {
-          text: 'Ok',
+          text: "Ok",
           handler: data => {
             if (data.qte != "") {
               data.qte = parseFloat(data.qte);
-              this.user.newCare('temperature', data);
+              this.user.newCare("temperature", data);
             }
           }
         }
@@ -489,15 +509,16 @@ export class BabyHomePage {
   /******************** Navigation *********************************************/
 
   goDisplayCares(careType) {
-    this.navCtrl.push('DisplayCaresPage', { careType: careType });
+    this.navCtrl.push("DisplayCaresPage", { careType: careType });
   }
 
   goEditBaby() {
-    this.navCtrl.push('EditBabyPage');
+    this.navCtrl.push("EditBabyPage");
   }
 
-  goCalendar(){
+  goCalendar() {
     console.log(this.user.currentBaby);
     this.navCtrl.push(CalendarPage);
   }
+
 }
