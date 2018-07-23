@@ -61,7 +61,7 @@ export class AddBabyPage {
     }
   }
 
-  validateEmail(email) {
+  validateEmail(email:string) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
@@ -111,7 +111,7 @@ export class AddBabyPage {
     prompt.present();
   }
 
-  removeAllergy(i) {
+  removeAllergy(i:number) {
     this.newBaby.allergy.splice(i, 1);
   }
 
@@ -180,7 +180,7 @@ export class AddBabyPage {
     });
   }
 
-  removeTrustedPeople(i) {
+  removeTrustedPeople(i:number) {
     this.newBaby.trustedPeople.splice(i, 1);
   }
 
