@@ -75,141 +75,111 @@
 
     <ion-list *ngIf="careType=='milk'">
       <span *ngFor="let milk of user.currentBaby.milk">
-        <ion-item *ngIf="milk.createDate>getDateLimit()">
+        <ion-item class="care" *ngIf="milk.createDate>getDateLimit()" (click)="editCare(milk)">
           <p>{{getDateinText(milk.createDate)}}:
             <strong>{{milk.qte}}ml</strong> par
             <strong>{{milk.carerName}}</strong>
           </p>
-          <button ion-button small round outline item-end (click)="editCare(milk)" *ngIf="milk.carerId == user.uid">
-            <ion-icon name="build"></ion-icon>
-          </button>
         </ion-item>
       </span>
     </ion-list>
 
     <ion-list *ngIf="careType=='water'">
       <span *ngFor="let water of user.currentBaby.water">
-        <ion-item *ngIf="water.createDate>getDateLimit()">
+        <ion-item class="care" *ngIf="water.createDate>getDateLimit()" (click)="editCare(water)">
           <p>{{getDateinText(water.createDate)}}:
             <strong>{{water.qte}}ml</strong> par
             <strong>{{water.carerName}}</strong>
           </p>
-          <button ion-button small round outline item-end (click)="editCare(water)" *ngIf="water.carerId == user.uid">
-            <ion-icon name="build"></ion-icon>
-          </button>
         </ion-item>
       </span>
     </ion-list>
 
     <ion-list *ngIf="careType=='weight'">
       <span *ngFor="let weight of user.currentBaby.weight">
-        <ion-item *ngIf="weight.createDate>getDateLimit()">
+        <ion-item class="care" *ngIf="weight.createDate>getDateLimit()" (click)="editCare(weight)">
           <p>{{getDateinText(weight.createDate)}}:
             <strong>{{weight.qte}}kg</strong> par
             <strong>{{weight.carerName}}</strong>
           </p>
-          <button ion-button small round outline item-end (click)="editCare(weight)" *ngIf="weight.carerId == user.uid">
-            <ion-icon name="build"></ion-icon>
-          </button>
         </ion-item>
       </span>
     </ion-list>
 
     <ion-list *ngIf="careType=='size'">
       <span *ngFor="let size of user.currentBaby.size">
-        <ion-item *ngIf="size.createDate>getDateLimit()">
+        <ion-item class="care" *ngIf="size.createDate>getDateLimit()" (click)="editCare(size)">
           <p>{{getDateinText(size.createDate)}}:
             <strong>{{size.qte}}cm</strong> par
             <strong>{{size.carerName}}</strong>
           </p>
-          <button ion-button small round outline item-end (click)="editCare(size)" *ngIf="size.carerId == user.uid">
-            <ion-icon name="build"></ion-icon>
-          </button>
         </ion-item>
       </span>
     </ion-list>
 
     <ion-list *ngIf="careType=='temperature'">
       <span *ngFor="let temperature of user.currentBaby.temperature">
-        <ion-item *ngIf="temperature.createDate>getDateLimit()">
+        <ion-item class="care" *ngIf="temperature.createDate>getDateLimit()" (click)="editCare(temperature)">
           <p>{{getDateinText(temperature.createDate)}}:
             <strong>{{temperature.qte}}°C</strong> par
             <strong>{{temperature.carerName}}</strong>
           </p>
-          <button ion-button small round outline item-end (click)="editCare(temperature)" *ngIf="temperature.carerId == user.uid">
-            <ion-icon name="build"></ion-icon>
-          </button>
         </ion-item>
       </span>
     </ion-list>
 
     <ion-list *ngIf="careType=='bath'">
       <span *ngFor="let bath of user.currentBaby.bath">
-        <ion-item *ngIf="bath.createDate>getDateLimit()">
+        <ion-item class="care" *ngIf="bath.createDate>getDateLimit()" (click)="editCare(bath)">
           <p>{{getDateinText(bath.createDate)}}: par
             <strong>{{bath.carerName}}</strong>
           </p>
-          <button ion-button small round outline item-end (click)="editCare(bath)" *ngIf="bath.carerId == user.uid">
-            <ion-icon name="build"></ion-icon>
-          </button>
         </ion-item>
       </span>
     </ion-list>
 
     <ion-list *ngIf="careType=='nappy'">
       <span *ngFor="let nappy of user.currentBaby.nappy">
-        <ion-item *ngIf="nappy.createDate>getDateLimit()">
+        <ion-item class="care" *ngIf="nappy.createDate>getDateLimit()" (click)="editCare(nappy)">
           <p>{{getDateinText(nappy.createDate)}}:
             <span *ngIf="nappy.urine"> urine</span>
             <span *ngIf="nappy.stool"> selles</span>
             <span *ngIf="nappy.diarrhoea"> diarrhée</span> par
             <strong>{{nappy.carerName}}</strong>
           </p>
-          <button ion-button small round outline item-end (click)="editCare(nappy)" *ngIf="nappy.carerId == user.uid">
-            <ion-icon name="build"></ion-icon>
-          </button>
         </ion-item>
       </span>
     </ion-list>
 
     <ion-list *ngIf="careType=='sleep'">
       <span *ngFor="let sleep of user.currentBaby.sleep">
-        <ion-item *ngIf="sleep.createDate>getDateLimit()">
+        <ion-item class="care" *ngIf="sleep.createDate>getDateLimit()" (click)="editCare(sleep)">
           <p>{{getDateinText(sleep.createDate)}}:
             <strong>{{getDurationInText(sleep.duration)}}</strong> par
             <strong>{{sleep.carerName}}</strong>
           </p>
-          <button ion-button small round outline item-end (click)="editCare(sleep)" *ngIf="sleep.carerId == user.uid">
-            <ion-icon name="build"></ion-icon>
-          </button>
         </ion-item>
       </span>
     </ion-list>
 
     <ion-list *ngIf="careType=='comment'">
       <span *ngFor="let comment of user.currentBaby.comment">
-        <ion-item *ngIf="comment.createDate>getDateLimit()">
+        <ion-item class="care" *ngIf="comment.createDate>getDateLimit()" (click)="editCare(comment)">
           <p>{{getDateinText(comment.createDate)}}: par
             <strong>{{comment.carerName}}</strong>
           </p>
           <p>{{comment.content}}</p>
-          <button ion-button small round outline item-end (click)="editCare(comment)" *ngIf="comment.carerId == user.uid">
-            <ion-icon name="build"></ion-icon>
-          </button>
         </ion-item>
       </span>
     </ion-list>
 
     <ion-list *ngIf="careType=='meal'">
       <span *ngFor="let meal of user.currentBaby.meal">
-        <ion-item *ngIf="meal.createDate>getDateLimit()">
+        <ion-item class="care" *ngIf="meal.createDate>getDateLimit()" (click)="editCare(meal)">
           <p>{{getDateinText(meal.createDate)}}: par
             <strong>{{meal.carerName}}</strong>
           </p>
           <p>{{meal.content}}</p>
-          <button ion-button small round outline item-end (click)="editCare(meal)" *ngIf="meal.carerId == user.uid">
-            <ion-icon name="build"></ion-icon>
-          </button>
         </ion-item>
       </span>
     </ion-list>

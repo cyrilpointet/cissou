@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams, AlertController, Loading, LoadingC
 import { UserProvider } from '../../providers/user/user';
 import { HomePage } from '../home/home';
 
+import { Camera } from "@ionic-native/camera";
+
 import * as moment from 'moment';
 
 
@@ -32,6 +34,7 @@ export class AddBabyPage {
     public navParams: NavParams,
     private user: UserProvider,
     private alertCtrl: AlertController,
+    public cameraPlugin: Camera,
     public loadingCtrl: LoadingController
   ) { }
 
@@ -46,13 +49,84 @@ export class AddBabyPage {
       birthDate: parseInt(moment().locale('fr').format('x')),
       allergy: [],
       note: "",
-      avatar: 'defaut',
+      avatar: 'default',
       trustedPeople: [],
       calendar: []
     };
     this.birthdate = moment(this.newBaby.birthDate).locale('fr').format('YYYY-MM-DDTHH:mmZ');
   }
 
+  /*************************************************************
+  Manage Image
+  **************************************************************/
+  getAvatar() {
+    if (this.newBaby.avatar == "default") {
+      return "assets/imgs/default.jpg";
+    } else {
+      return this.newBaby.avatar;
+    }
+  }
+
+  takePicture() {
+    this.cameraPlugin
+      .getPicture({
+        quality: 10,
+        destinationType: this.cameraPlugin.DestinationType.FILE_URI,
+        sourceType: this.cameraPlugin.PictureSourceType.CAMERA,
+        allowEdit: false,
+        encodingType: this.cameraPlugin.EncodingType.JPEG,
+        saveToPhotoAlbum: false,
+        correctOrientation: true
+      })
+      .then(
+        imageData => {
+          this.generateFromImage(imageData, data => {
+            this.newBaby.avatar = data;
+          });
+        },
+        error => {
+          console.log("ERROR -> " + JSON.stringify(error));
+        }
+      );
+  }
+
+  generateFromImage(img, callback) {
+    let canvas: any = document.createElement("canvas");
+    let image = new Image();
+
+    image.onload = () => {
+      let width = image.width;
+      let height = image.height;
+
+      if (width < height) {
+        if (width > 200) {
+          height *= 200 / width;
+          width = 200;
+        }
+      } else {
+        if (height > 200) {
+          width *= 200 / height;
+          height = 200;
+        }
+      }
+      canvas.width = 200;
+      canvas.height = 200;
+      let displayX = (200-width)/2 ;
+      let displayY = (200-height)/2 ;
+      let ctx = canvas.getContext("2d");
+      ctx.drawImage(image, displayX, displayY, width, height);
+
+      // IMPORTANT: 'jpeg' NOT 'jpg'
+      let dataUrl = canvas.toDataURL("image/jpeg", 1);
+
+      callback(dataUrl);
+    };
+    image.src = img;
+  }
+
+  /*************************************************************
+  Validators
+  **************************************************************/
   isNameValid() {
     if (this.newBaby.name.length < 3) {
       return false
@@ -65,6 +139,10 @@ export class AddBabyPage {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
+
+  /*************************************************************
+  UI
+  **************************************************************/
 
   showMsg(msg: string) {
     const prompt = this.alertCtrl.create({
@@ -81,6 +159,9 @@ export class AddBabyPage {
     prompt.present();
   }
 
+  /*************************************************************
+  Add / Remove datas
+  **************************************************************/
   addAllergy() {
     const prompt = this.alertCtrl.create({
       title: "Ajouter une allergie",
@@ -184,6 +265,9 @@ export class AddBabyPage {
     this.newBaby.trustedPeople.splice(i, 1);
   }
 
+  /*************************************************************
+  Add and cancel functions
+  **************************************************************/
   addBaby() {
     if (this.newBaby.name.length < 4) {
       console.log('invalid form');

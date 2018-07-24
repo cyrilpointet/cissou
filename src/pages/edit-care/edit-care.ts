@@ -11,7 +11,11 @@ import {
 // Providers
 import { UserProvider } from '../../providers/user/user';
 
+// Libraries
 import * as moment from 'moment';
+
+// Constantes
+import { careList } from "../../const/cares"
 
 @IonicPage()
 @Component({
@@ -57,92 +61,7 @@ export class EditCarePage {
   }
 
   getCareLegends() {
-    let legends;
-    switch (this.careType) {
-      case 'milk':
-        legends = {
-          title: 'Tétées / biberons de lait',
-          legend: "lait en ml (estimation)",
-          type : "qte",
-        }
-        break;
-
-      case 'water':
-        legends = {
-          title: "Biberons d'eau",
-          legend: "eau en ml",
-          type : "qte",
-        }
-        break;
-
-      case 'meal':
-        legends = {
-          title: 'Repas',
-          legend: 'Repas solides',
-          type : "text",
-        }
-        break;
-
-      case 'nappy':
-        legends = {
-          title: 'Changes / couches',
-          legend: 'Changes / couches',
-          type : "nappy",
-        }
-        break;
-
-      case 'bath':
-        legends = {
-          title: 'Bain / toilette',
-          legend: 'Bain / toilette',
-          type : "none",
-        }
-        break;
-
-      case 'sleep':
-        legends = {
-          title: 'Sommeil / sieste',
-          legend: "sommeil - durée en heure",
-          type : "duration",
-        }
-        break;
-
-      case 'weight':
-        legends = {
-          title: 'Pesée',
-          legend: 'Poids en kg',
-          type : "qte",
-        }
-        break;
-
-      case 'size':
-        legends = {
-          title: 'Taille',
-          legend: 'Taille en cm',
-          type : "qte",
-        }
-        break;
-
-      case 'temperature':
-        legends = {
-          title: 'Température',
-          legend: '°C',
-          type : "qte",
-        }
-        break;
-
-      case 'comment':
-        legends = {
-          title: 'Commentaires et remarques',
-          legend: 'Commentaires et remarques',
-          type : "text",
-        }
-        break;
-
-      default:
-        console.log('careType error');
-        break;
-    }
+    let legends = careList[this.careType];
     return legends
   }
 

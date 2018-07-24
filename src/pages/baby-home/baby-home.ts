@@ -7,12 +7,18 @@ import {
   ActionSheetController
 } from "ionic-angular";
 
+// Provider
 import { UserProvider } from "../../providers/user/user";
 
+// Pages
 import { CalendarPage } from "../calendar/calendar";
 
+// Libraries
 import * as moment from "moment";
 import * as $ from "jquery";
+
+// Constantes
+import { careList } from "../../const/cares"
 
 @IonicPage()
 @Component({
@@ -48,7 +54,7 @@ export class BabyHomePage {
   }
 
   ionViewWillEnter() {
-    this.getAllCares(this.careList);
+    this.getAllCares();
     this.user.getMumName().then(resp => {
       console.log(resp.data());
       this.motherName = resp.data().nickName;
@@ -90,11 +96,18 @@ export class BabyHomePage {
 
   /******************** Cares management *********************************************/
 
-  getAllCares(careList) {
+  getAllCares() {
     this.user.loadedCares = 0;
+    /*
     careList.forEach(element => {
       this.user.getCares(element).subscribe();
     });
+    */
+   for (const key in careList) {
+     if (careList.hasOwnProperty(key)) {
+       this.user.getCares(key).subscribe();
+     }
+   }
   }
 
   newCare() {

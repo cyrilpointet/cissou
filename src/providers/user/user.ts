@@ -9,7 +9,7 @@ import {
 import * as moment from 'moment';
 
 import { Baby } from '../../classes/baby';
-
+import { Care } from '../../classes/care';
 
 import { Observable } from 'rxjs';
 
@@ -213,6 +213,7 @@ export class UserProvider {
     let createDate = parseInt(moment().locale('fr').format('x'));
     content.createDate = createDate;
     content.carerId = this.uid;
+    content.carerName = this.nickName;
     this.fireStore.newCare(type, this.currentBaby.id, content).then(resp => {
       this.getCares(type).subscribe(data => {
         observer.complete();
@@ -242,7 +243,9 @@ export class UserProvider {
             let newCare: any = element.data();
             newCare.id = element.id;
             newCare.carerName = "";
-            this.currentBaby[type].push(newCare);
+            newCare.type = type;
+            let care = new Care(newCare);
+            this.currentBaby[type].push(care);
             this.currentBaby[type].sort((a, b) => {
               return b.createDate - a.createDate;
             });

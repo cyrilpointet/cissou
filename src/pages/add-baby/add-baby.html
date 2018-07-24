@@ -16,6 +16,17 @@
         <ion-input type="text" [(ngModel)]="newBaby.name"></ion-input>
       </ion-item>
 
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img [src]="getAvatar()">
+        </ion-thumbnail>
+        <div class="flexAround">
+          <button (click)="takePicture()" ion-button small>
+            <ion-icon name="camera"></ion-icon>
+          </button>
+        </div>
+      </ion-item>
+
       <ion-item class="bottomBorder">
         <ion-label stacked>Date de naissance</ion-label>
         <ion-datetime cancelText="Annuler" doneText="Ok" displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="birthdate"></ion-datetime>

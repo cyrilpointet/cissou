@@ -2,4 +2,9 @@ page-display-cares {
     .myChart{
         width: 100%;
     }
+
+    .care {
+        border-top: 1px map-get($map: $colors, $key: secondary) solid
+
+    }
 }

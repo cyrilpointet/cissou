@@ -203,81 +203,61 @@ export class DisplayCaresPage {
     switch (this.careType) {
       case "milk":
         this.user.newMilk().subscribe(data => {
-          setTimeout(() => {
-            this.prepareData();
-          }, 1000);
+          this.prepareData();
         });
         break;
 
       case "water":
         this.user.newWater().subscribe(data => {
-          setTimeout(() => {
-            this.prepareData();
-          }, 1000);
+          this.prepareData();
         });
         break;
 
       case "bath":
         this.user.newBath().subscribe(data => {
-          setTimeout(() => {
-            this.prepareData();
-          }, 1000);
+          this.prepareData();
         });
         break;
 
       case "nappy":
         this.user.newNappy().subscribe(data => {
-          setTimeout(() => {
-            this.prepareData();
-          }, 1000);
+          this.prepareData();
         });
         break;
 
       case "sleep":
         this.user.newSleep().subscribe(data => {
-          setTimeout(() => {
-            this.prepareData();
-          }, 1000);
+          this.prepareData();
         });
         break;
 
       case "comment":
         this.user.newComment().subscribe(data => {
-          setTimeout(() => {
-            this.prepareData();
-          }, 1000);
+          this.prepareData();
         });
         break;
 
       case "meal":
         this.user.newMeal().subscribe(data => {
-          setTimeout(() => {
-            this.prepareData();
-          }, 1000);
+          this.prepareData();
         });
         break;
 
       case "weight":
         this.user.newWeight().subscribe(data => {
-          setTimeout(() => {
-            this.prepareData();
-          }, 1000);
+          this.prepareData();
         });
         break;
 
       case "size":
         this.user.newSize().subscribe(data => {
-          setTimeout(() => {
-            this.prepareData();
-          }, 1000);
+          this.prepareData();
         });
         break;
 
       case "temperature":
         this.user.newTemperature().subscribe(data => {
-          setTimeout(() => {
-            this.prepareData();
-          }, 1000);
+          this.prepareData();
         });
         break;
 
