@@ -125,6 +125,10 @@ export class PdfProvider {
             this.file.dataDirectory + "myletter.pdf",
             "application/pdf"
           );
+        })
+        .catch(err => {
+          const alert = this.alertCtrl.create({ message: "writefile: " + err, buttons: ['Ok'] });
+          alert.present();
         });
     });
     /*
@@ -187,8 +191,8 @@ export class PdfProvider {
         text: `Du ${moment(this.dateLimt)
           .locale("fr")
           .format("DD/MM/YYYY")} au ${moment()
-          .locale("fr")
-          .format("DD/MM/YYYY")}`,
+            .locale("fr")
+            .format("DD/MM/YYYY")}`,
         style: "toRight"
       },
       { text: careList[careType].title, style: "subTitle" },
@@ -291,8 +295,8 @@ export class PdfProvider {
               .locale("fr")
               .format("HH:mm"),
             moment.duration(element.duration).hours() +
-              ":" +
-              moment.duration(element.duration).minutes()
+            ":" +
+            moment.duration(element.duration).minutes()
           ];
           body.push(care);
         });
