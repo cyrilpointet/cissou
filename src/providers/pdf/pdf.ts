@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { UserProvider } from "../user/user";
-import { AlertController } from "ionic-angular";
+import { AlertController, Loading, LoadingController } from "ionic-angular";
 import { File } from "@ionic-native/file";
 import { FileOpener } from "@ionic-native/file-opener";
 import pdfMake from "pdfmake/build/pdfmake";
@@ -73,8 +73,8 @@ export class PdfProvider {
   constructor(
     private file: File,
     private fileOpener: FileOpener,
-    private alertCtrl: AlertController,
-    private user: UserProvider
+    private user: UserProvider,
+    private loadingCtrl: LoadingController
   ) {
     console.log("Hello PdfProvider Provider");
   }
@@ -82,6 +82,9 @@ export class PdfProvider {
   // Create and manage pdf obj and style ---------------------------------------------
   // ---------------------------------------------------------------------------------
   createPdf(careType: string, timeScale: string) {
+    let loading = this.loadingCtrl.create();
+    loading.present();
+
     this.dateLimt = this.getDateLimit(timeScale);
     let docDef = {
       pageSize: "A4",
@@ -111,53 +114,24 @@ export class PdfProvider {
 
     this.pdfObj = pdfMake.createPdf(docDef);
 
-    this.pdfObj.getBuffer(buffer => {
-      var blob = new Blob([buffer], { type: "application/pdf" });
+    this.pdfObj.getBlob(buffer => {
+      let blob = buffer;
 
       // Save the PDF to the data Directory of our App
+      let title = `${this.user.currentBaby.name}_${moment().locale("fr").format("DDMMYYYYHHmm")}.pdf`;
       this.file
-        .writeFile(this.file.dataDirectory, "myletter.pdf", blob, {
+        .writeFile(this.file.dataDirectory, title, blob, {
           replace: true
         })
         .then(fileEntry => {
+          loading.dismiss();
           // Open the PDf with the correct OS tools
           this.fileOpener.open(
-            this.file.dataDirectory + "myletter.pdf",
+            this.file.dataDirectory + title,
             "application/pdf"
           );
         });
     });
-    /*
-   pdfMake.createPdf(docDef).getBlob(buffer => {
-    this.file.resolveDirectoryUrl(this.file.externalRootDirectory)
-      .then(dirEntry => {
-        this.file.getFile(dirEntry, 'test1.pdf', { create: true })
-          .then(fileEntry => {
-            fileEntry.createWriter(writer => {
-              writer.onwrite = () => {
-                this.fileOpener.open(fileEntry.toURL(), 'application/pdf')
-                  .then(res => { })
-                  .catch(err => {
-                    const alert = this.alertCtrl.create({ message: "fileOpener: "+err.message, buttons: ['Ok'] });
-                    alert.present();
-                  });
-              }
-              writer.write(buffer);
-            })
-          })
-          .catch(err => {
-            const alert = this.alertCtrl.create({ message: "getFile" + err, buttons: ['Ok'] });
-            alert.present();
-          });
-      })
-      .catch(err => {
-        const alert = this.alertCtrl.create({ message: "resolveDirectoryUrl" + err, buttons: ['Ok'] });
-        alert.present();
-      });
-      
-
-  });
-  */
   }
 
   // Manage pdf template ---------------------------------------------------------------

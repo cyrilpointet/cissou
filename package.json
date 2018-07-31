@@ -71,7 +71,8 @@
       "cordova-plugin-screen-orientation": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-crop": {},
-      "cordova-plugin-file": {}
+      "cordova-plugin-file": {},
+      "cordova-plugin-file-opener2": {}
     },
     "platforms": [
       "android"
