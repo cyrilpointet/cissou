@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Baby::class);
     }
+
+    public function pupils()
+    {
+        return $this->belongsToMany(Baby::class)->using(Nanny::class);
+    }
 }

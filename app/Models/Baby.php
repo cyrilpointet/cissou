@@ -19,4 +19,11 @@ class Baby extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function nannies()
+    {
+        return $this->belongsToMany(User::class)
+            ->using(Nanny::class)
+            ->withPivot('comment_rights');
+    }
 }

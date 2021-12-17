@@ -25,6 +25,7 @@ class BabyController extends Controller
             'user_id' => $user->id
         ]);
         $baby->parent;
+        $baby->nannies;
         return response($baby, 201);
     }
 
@@ -36,6 +37,7 @@ class BabyController extends Controller
             ], 404);
         }
         $baby->parent;
+        $baby->nannies;
         return response($baby, 200);
     }
 
@@ -53,6 +55,8 @@ class BabyController extends Controller
                 $baby->birth = $request->birth;
         }
         $baby->save();
+        $baby->parent;
+        $baby->nannies;
         return response($baby, 200);
     }
 

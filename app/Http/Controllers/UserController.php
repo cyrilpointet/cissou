@@ -8,7 +8,7 @@ use Auth;
 use Validator;
 use App\Models\User;
 
-class AuthController extends Controller
+class UserController extends Controller
 {
     public function register(Request $request)
     {
@@ -58,5 +58,12 @@ class AuthController extends Controller
         return [
             'message' => 'You have successfully logged out and the token was successfully deleted'
         ];
+    }
+
+    public function show(Request $request)
+    {
+        $user = $request->user();
+        $user->pupils;
+        return response($user, 200);
     }
 }
