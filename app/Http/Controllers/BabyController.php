@@ -29,25 +29,16 @@ class BabyController extends Controller
         return response($baby, 201);
     }
 
-    public function read($id) {
-        $baby = Baby::find($id);
-        if (null === $baby) {
-            return response([
-                "message" => "Unknown baby"
-            ], 404);
-        }
+    public function read(Request $request) {
+        $baby = $request->get('baby');
         $baby->parent;
         $baby->nannies;
         return response($baby, 200);
     }
 
-    public function update(Request $request, $id) {
-        $baby = Baby::find($id);
-        if (null === $baby) {
-            return response([
-                "message" => "Unknown baby"
-            ], 404);
-        }
+    public function update(Request $request) {
+        $baby = $request->get('baby');
+
         switch (true) {
             case isset($request->name):
                 $baby->name = $request->name;
@@ -60,8 +51,8 @@ class BabyController extends Controller
         return response($baby, 200);
     }
 
-    public function delete($id) {
-        $baby = Baby::find($id);
+    public function delete(Request $request) {
+        $baby = $request->get('baby');
         if (null === $baby) {
             return response([
                 "message" => "Unknown baby"
