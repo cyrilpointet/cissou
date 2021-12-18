@@ -13,7 +13,7 @@ class BabyController extends Controller
     public function create(Request $request) {
         try {
             $request->validate([
-                'name' => 'required',
+                'name' => 'required|string|min:2|max:255',
                 'birth' => 'required',
             ]);
         } catch (\Exception $e) {

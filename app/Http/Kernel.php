@@ -64,6 +64,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isBabyParent' => \App\Http\Middleware\EnsureIsBabyParent::class,
-        'isBabyParentOrNanny' => \App\Http\Middleware\EnsureIsBabyParentOrNanny::class
+        'isBabyParentOrNanny' => \App\Http\Middleware\EnsureIsBabyParentOrNanny::class,
+        'hasCommentsReadRights' => \App\Http\Middleware\EnsureHasCommentsReadRights::class,
+        'hasCommentsWriteRights' => \App\Http\Middleware\EnsureHasCommentsWriteRights::class
     ];
 }

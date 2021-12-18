@@ -11,7 +11,7 @@ class NannyController extends Controller
 {
     use BabyTraits;
 
-    public function create(Request $request, $id) {
+    public function create(Request $request) {
         try {
             $request->validate([
                 'comment_rights' => 'required',

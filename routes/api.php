@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NannyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BabyController;
@@ -26,4 +27,14 @@ Route::middleware(['auth:sanctum', 'isBabyParent'])->group(function () {
     Route::post('baby/{id}/nanny', [NannyController::class, 'create']);
     Route::put('baby/{id}/nanny/{user_id}', [NannyController::class, 'update']);
     Route::delete('baby/{id}/nanny/{user_id}', [NannyController::class, 'delete']);
+});
+
+Route::middleware(['auth:sanctum', 'hasCommentsReadRights'])->group(function () {
+    Route::get('baby/{id}/comment/{comment_id}', [CommentController::class, 'read']);
+});
+
+Route::middleware(['auth:sanctum', 'hasCommentsWriteRights'])->group(function () {
+    Route::post('baby/{id}/comment', [CommentController::class, 'create']);
+    Route::put('baby/{id}/comment/{comment_id}', [CommentController::class, 'update']);
+    Route::delete('baby/{id}/comment/{comment_id}', [CommentController::class, 'delete']);
 });

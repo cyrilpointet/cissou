@@ -17,19 +17,19 @@ class CommentSeeder extends Seeder
         Comment::truncate();
 
         Comment::create([
-            'content' => 'comment editable',
+            'text' => 'comment editable',
             'user_id' => 1,
             'baby_id' => 2
         ]);
 
         Comment::create([
-            'content' => 'comment readonly',
+            'text' => 'comment readonly',
             'user_id' => 1,
             'baby_id' => 3
         ]);
 
         Comment::create([
-            'content' => 'comment invisible',
+            'text' => 'comment invisible',
             'user_id' => 1,
             'baby_id' => 4
         ]);
