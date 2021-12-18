@@ -17,6 +17,12 @@ class UserSeeder extends Seeder
     {
         User::truncate();
 
+        User::create([
+            'name' => 'toto',
+            'email' => 'toto@toto.toto',
+            'password' => Hash::make('totototo')
+        ]);
+
         for ($i=0; $i<10; $i++) {
             User::create([
                 'name' => 'user' . ($i + 1),

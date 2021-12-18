@@ -15,8 +15,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('baby', [BabyController::class, 'create']);
 });
 
-Route::middleware(['auth:sanctum', 'isBabyParent'])->group(function () {
+Route::middleware(['auth:sanctum', 'isBabyParentOrNanny'])->group(function () {
     Route::get('baby/{id}', [BabyController::class, 'read']);
+});
+
+Route::middleware(['auth:sanctum', 'isBabyParent'])->group(function () {
     Route::put('baby/{id}', [BabyController::class, 'update']);
     Route::delete('baby/{id}', [BabyController::class, 'delete']);
 

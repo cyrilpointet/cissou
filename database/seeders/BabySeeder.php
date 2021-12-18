@@ -21,5 +21,23 @@ class BabySeeder extends Seeder
             'birth' => '2021-06-30 11:21:50',
             'user_id' => 1
         ]);
+
+        Baby::create([
+            'name' => 'Baby Nanny Auth 2',
+            'birth' => '2021-06-30 11:21:50',
+            'user_id' => 2
+        ]);
+
+        Baby::create([
+            'name' => 'Baby Nanny Auth 1',
+            'birth' => '2021-06-30 11:21:50',
+            'user_id' => 2
+        ]);
+
+        Baby::create([
+            'name' => 'Baby Nanny Auth 0',
+            'birth' => '2021-06-30 11:21:50',
+            'user_id' => 2
+        ]);
     }
 }

@@ -26,4 +26,9 @@ class Baby extends Model
             ->using(Nanny::class)
             ->withPivot('comment_rights');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

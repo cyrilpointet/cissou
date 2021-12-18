@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Baby;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Traits\BabyTraits;
 
 class BabyController extends Controller
 {
+    use BabyTraits;
+
     public function create(Request $request) {
         try {
             $request->validate([
@@ -24,16 +27,13 @@ class BabyController extends Controller
             'birth' => $request->birth,
             'user_id' => $user->id
         ]);
-        $baby->parent;
-        $baby->nannies;
-        return response($baby, 201);
+
+        return response($this->populateBaby($baby, $request->user()), 201);
     }
 
     public function read(Request $request) {
         $baby = $request->get('baby');
-        $baby->parent;
-        $baby->nannies;
-        return response($baby, 200);
+        return response($this->populateBaby($baby, $request->user()), 200);
     }
 
     public function update(Request $request) {
@@ -46,18 +46,12 @@ class BabyController extends Controller
                 $baby->birth = $request->birth;
         }
         $baby->save();
-        $baby->parent;
-        $baby->nannies;
-        return response($baby, 200);
+
+        return response($this->populateBaby($baby, $request->user()), 200);
     }
 
     public function delete(Request $request) {
         $baby = $request->get('baby');
-        if (null === $baby) {
-            return response([
-                "message" => "Unknown baby"
-            ], 404);
-        }
         $baby->delete();
         return response([
             'message' => 'Baby deleted'

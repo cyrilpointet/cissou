@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(BabySeeder::class);
         $this->call(NannySeeder::class);
+        $this->call(CommentSeeder::class);
         Schema::enableForeignKeyConstraints();
     }
 }

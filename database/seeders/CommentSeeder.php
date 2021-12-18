@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Nanny;
+use App\Models\Comment;
 use Illuminate\Database\Seeder;
 
-class NannySeeder extends Seeder
+class CommentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,28 +14,22 @@ class NannySeeder extends Seeder
      */
     public function run()
     {
-        Nanny::truncate();
+        Comment::truncate();
 
-        Nanny::create([
-            'comment_rights' => 2,
-            'user_id' => 2,
-            'baby_id' => 1
-        ]);
-
-        Nanny::create([
-            'comment_rights' => 2,
+        Comment::create([
+            'content' => 'comment editable',
             'user_id' => 1,
             'baby_id' => 2
         ]);
 
-        Nanny::create([
-            'comment_rights' => 1,
+        Comment::create([
+            'content' => 'comment readonly',
             'user_id' => 1,
             'baby_id' => 3
         ]);
 
-        Nanny::create([
-            'comment_rights' => 0,
+        Comment::create([
+            'content' => 'comment invisible',
             'user_id' => 1,
             'baby_id' => 4
         ]);
