@@ -2,7 +2,11 @@
     <div>
         <h1>Home</h1>
         <h2>Babies</h2>
-        <div v-for="baby in user.allBabies" :key="baby.id">
+        <div
+            v-for="baby in user.allBabies"
+            :key="baby.id"
+            @click="goToBaby(baby.id)"
+        >
             <p>{{ baby.name }}</p>
             <p>{{ baby.formatedBrith }}</p>
         </div>
@@ -21,6 +25,14 @@ export default {
         ...mapGetters({
             isLogged: "user/isLogged",
         }),
+    },
+    methods: {
+        goToBaby(id) {
+            this.$router.push({
+                name: "baby",
+                params: { id: id },
+            });
+        },
     },
 };
 </script>

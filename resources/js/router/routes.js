@@ -1,17 +1,24 @@
-import Home from "../pages/HomePage.vue";
-import Login from "../pages/LoginPage.vue";
+import HomePage from "../pages/HomePage.vue";
+import LoginPage from "../pages/LoginPage.vue";
+import BabyPage from "../pages/BabyPage";
 
 export const Routes = [
     {
         path: "/",
         name: "home",
-        component: Home,
+        component: HomePage,
         meta: { requiresAuth: true },
     },
     {
         path: "/login",
         name: "login",
-        component: Login,
+        component: LoginPage,
         meta: { preloadUser: true },
+    },
+    {
+        path: "/baby/:id",
+        name: "baby",
+        component: BabyPage,
+        meta: { requiresAuth: true },
     },
 ];
