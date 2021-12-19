@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum', 'isBabyParent'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum', 'hasCommentsReadRights'])->group(function () {
+    Route::get('baby/{id}/comment', [CommentController::class, 'readAll']);
     Route::get('baby/{id}/comment/{comment_id}', [CommentController::class, 'read']);
 });
 

@@ -10,6 +10,12 @@ class CommentController extends Controller
 {
     use BabyTraits;
 
+    private function populateComment($comment) {
+        $comment->user;
+        $comment->baby;
+        return $comment;
+    }
+
     public function create(Request $request) {
         try {
             $request->validate([
@@ -23,14 +29,13 @@ class CommentController extends Controller
 
         $user = $request->user();
         $baby = $request->get('baby');
-        Comment::create([
+        $comment = Comment::create([
             'text' => $request->text,
             'user_id' => $user->id,
             'baby_id' => $baby->id
         ]);
 
-        $baby->refresh();
-        return response($this->populateBaby($baby, $request->user()), 201);
+        return response($this->populateComment($comment), 201);
     }
 
     public function read(Request $request, $id, $comment_id) {
@@ -41,10 +46,17 @@ class CommentController extends Controller
             ], 404);
         }
 
-        $comment->user;
-        $comment->baby;
+        return response($this->populateComment($comment), 200);
+    }
 
-        return response($comment, 200);
+    public function readAll(Request $request) {
+        $baby = $request->get('baby');
+        $rawComments = $baby->comments;
+        $comments = [];
+        foreach ($rawComments as $rawComment) {
+            $comments[] = $this->populateComment($rawComment);
+        }
+        return response($comments, 200);
     }
 
     public function update(Request $request, $id, $comment_id) {
@@ -58,10 +70,10 @@ class CommentController extends Controller
             ], 400);
         }
 
-        $comment = Comment::find($comment_id);
+        $comment = Comment::find(intval($comment_id));
         if (null === $comment) {
             return response([
-                "message" => "Unknown comment"
+                "message" => intval($comment_id)
             ], 404);
         }
 
@@ -69,7 +81,7 @@ class CommentController extends Controller
         $comment->save();
         $comment->user;
         $comment->baby;
-        return response($comment, 200);
+        return response($this->populateComment($comment), 200);
     }
 
     public function delete(Request $request, $id, $comment_id) {
