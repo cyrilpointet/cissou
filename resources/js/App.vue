@@ -1,0 +1,27 @@
+<template>
+    <div>
+        <HeaderBar />
+        <router-view />
+    </div>
+</template>
+
+<script>
+import { mapGetters, mapState } from "vuex";
+import HeaderBar from "./components/common/HeaderBar";
+
+export default {
+    name: "App",
+    components: { HeaderBar },
+    computed: {
+        ...mapState({
+            user: (state) => state.user.user,
+        }),
+        ...mapGetters({
+            isLogged: "user/isLogged",
+        }),
+    },
+    data: () => {
+        return {};
+    },
+};
+</script>

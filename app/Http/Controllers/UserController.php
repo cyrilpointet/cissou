@@ -69,6 +69,7 @@ class UserController extends Controller
     public function show(Request $request)
     {
         $user = $request->user();
+        $user->babies;
         $user->pupils;
         return response($user, 200);
     }
