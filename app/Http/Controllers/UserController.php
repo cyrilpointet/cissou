@@ -73,4 +73,19 @@ class UserController extends Controller
         $user->pupils;
         return response($user, 200);
     }
+
+    public function findByEmail(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required',
+            ]);
+        } catch (\Exception $e) {
+            return response([
+                'message' => ['Invalid or missing fields']
+            ], 400);
+        }
+        $user = User::where('email', '=', $request->email)->first();
+        return response($user, 200);
+    }
 }

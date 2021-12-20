@@ -27,7 +27,7 @@ export class Baby {
         return createdAt.toLocaleDateString("fr-FR");
     }
 
-    get formatedBrith() {
+    get formatedBirth() {
         const birth = new Date(this.birth);
         return birth.toLocaleDateString("fr-FR");
     }

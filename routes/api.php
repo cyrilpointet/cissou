@@ -11,6 +11,7 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [UserController::class, 'show']);
+    Route::post('/find', [UserController::class, 'findByEmail']);
     Route::post('/logout', [UserController::class, 'logout']);
 
     Route::post('baby', [BabyController::class, 'create']);

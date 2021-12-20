@@ -7,17 +7,19 @@
             :key="baby.id"
             @click="goToBaby(baby.id)"
         >
-            <p>{{ baby.name }}</p>
-            <p>{{ baby.formatedBrith }}</p>
+            <p>{{ baby.name }} - {{ baby.formatedBirth }}</p>
         </div>
+        <BabyCreator />
     </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import BabyCreator from "../components/baby/BabyCreator";
 
 export default {
     name: "home-page",
+    components: { BabyCreator },
     computed: {
         ...mapState({
             user: (state) => state.user.user,

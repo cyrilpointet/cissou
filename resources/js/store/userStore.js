@@ -20,6 +20,15 @@ export const userStore = {
         setToken(state, value) {
             state.token = value;
         },
+        addBaby(state, baby) {
+            state.user.addBaby(baby);
+        },
+        removeBaby(state, babyId) {
+            state.user.removeBaby(babyId);
+        },
+        updateBaby(state, baby) {
+            state.user.updateBaby(baby);
+        },
     },
     actions: {
         storeUserAndToken(context, value) {
