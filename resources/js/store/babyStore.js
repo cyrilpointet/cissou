@@ -11,6 +11,9 @@ export const babyStore = {
         setBaby(state, value) {
             state.baby = value;
         },
+        addNanny(state, nanny) {
+            state.baby.addNanny(nanny);
+        },
     },
     actions: {
         async getBaby(context, id) {
@@ -34,6 +37,16 @@ export const babyStore = {
             await ApiConsumer.delete(`baby/${id}`);
             context.commit("setBaby", null);
             context.commit("user/removeBaby", id, { root: true });
+            return;
+        },
+        async addNanny(context, values) {
+            const newNanny = await ApiConsumer.post(
+                `baby/${values.babyId}/nanny`,
+                {
+                    user_id: values.userId,
+                }
+            );
+            context.commit("addNanny", newNanny);
             return;
         },
     },

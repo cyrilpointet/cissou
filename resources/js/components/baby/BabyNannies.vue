@@ -1,14 +1,21 @@
 <template>
     <div>
         <h4>Nannies</h4>
-        <template v-if="baby.nannies.length > 0">
-            <p v-for="nanny in baby.nannies" :key="nanny.id">
-                {{ nanny.name }}
-            </p>
-        </template>
+        <div v-if="baby.nannies.length > 0">
+            <div
+                v-for="nanny in baby.nannies"
+                :key="nanny.id"
+                style="display: flex; gap: 1rem"
+            >
+                <p>
+                    {{ nanny.name }}
+                </p>
+            </div>
+        </div>
         <div v-if="baby.nannies.length < 1">
             <p>Pas de nannie</p>
         </div>
+        <h4>Ajouter nanny</h4>
     </div>
 </template>
 

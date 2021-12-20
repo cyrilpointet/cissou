@@ -36,4 +36,8 @@ export class Baby {
         const nanny = this.nannies.find((elem) => elem.id === userId);
         return nanny && nanny.rights[category] ? nanny.rights[category] : 0;
     }
+
+    addNanny(nanny) {
+        this.nannies.push(new Nanny(nanny));
+    }
 }

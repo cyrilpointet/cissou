@@ -14,7 +14,6 @@ class NannyController extends Controller
     public function create(Request $request) {
         try {
             $request->validate([
-                'comment_rights' => 'required',
                 'user_id' => 'required'
             ]);
         } catch (\Exception $e) {
@@ -41,13 +40,20 @@ class NannyController extends Controller
         }
 
         Nanny::create([
-            'comment_rights' => $request->comment_rights,
+            'comment_rights' => 0,
             'user_id' => $request->user_id,
             'baby_id' => $baby->id
         ]);
 
         $baby->refresh();
-        return response($this->populateBaby($baby, $request->user()), 201);
+        $baby->nannies;
+        $newNanny = null;
+        foreach ($baby->nannies as $nanny) {
+            if ($nanny->pivot->user_id === $request->user_id && $nanny->pivot->baby_id === $baby->id) {
+                $newNanny = $nanny;
+            }
+        }
+        return response($newNanny, 201);
     }
 
     public function update(Request $request, $id, $user_id) {

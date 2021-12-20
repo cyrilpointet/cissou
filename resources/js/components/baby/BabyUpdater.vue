@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>Update Baby</h3>
+        <h5>Update Baby</h5>
         <input type="text" v-model="name" placeholder="Nom" />
         <input
             type="datetime-local"

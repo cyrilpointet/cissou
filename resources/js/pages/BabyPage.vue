@@ -7,7 +7,9 @@
             <BabyNannies />
             <BabyComments v-if="baby.comments" />
             <BabyUpdater v-if="isUserParent" />
+            <h5>Delete</h5>
             <button v-if="isUserParent" @click="deleteBaby">Delete</button>
+            <UserFinder v-if="isUserParent" @userSelected="addNanny" />
         </div>
     </div>
 </template>
@@ -17,10 +19,11 @@ import { mapGetters, mapState } from "vuex";
 import BabyNannies from "../components/baby/BabyNannies";
 import BabyComments from "../components/baby/BabyComments";
 import BabyUpdater from "../components/baby/BabyUpdater";
+import UserFinder from "../components/user/UserFinder";
 
 export default {
     name: "baby-page",
-    components: { BabyNannies, BabyComments, BabyUpdater },
+    components: { BabyNannies, BabyComments, BabyUpdater, UserFinder },
     computed: {
         ...mapState({
             baby: (state) => state.baby.baby,
@@ -44,6 +47,16 @@ export default {
             try {
                 await this.$store.dispatch("baby/deleteBaby", this.baby.id);
                 this.$router.push({ name: "home" });
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async addNanny(userId) {
+            try {
+                await this.$store.dispatch("baby/addNanny", {
+                    babyId: this.baby.id,
+                    userId: userId,
+                });
             } catch (e) {
                 console.log(e);
             }
