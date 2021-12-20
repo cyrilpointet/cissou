@@ -14,16 +14,13 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapState } from "vuex";
 
 export default {
     name: "home-page",
     computed: {
         ...mapState({
             user: (state) => state.user.user,
-        }),
-        ...mapGetters({
-            isLogged: "user/isLogged",
         }),
     },
     methods: {

@@ -6,7 +6,6 @@ export const babyStore = {
 
     state: () => ({
         baby: null,
-        token: null,
     }),
     mutations: {
         setBaby(state, value) {

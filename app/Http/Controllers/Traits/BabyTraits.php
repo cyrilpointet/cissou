@@ -14,6 +14,9 @@ trait BabyTraits {
         switch (true) {
             case $isParent || $nanny->comment_rights > 0:
                 $baby->comments;
+                foreach ($baby->comments as $comment) {
+                    $comment->user;
+                };
         }
 
         return $baby;
