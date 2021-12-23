@@ -3,10 +3,13 @@ export class Nanny {
         this.id = rawNanny.id;
         this.name = rawNanny.name;
         this.email = rawNanny.email;
-        this.roles = {
+        this.commentsRole = rawNanny.pivot.comment_rights;
+    }
+    get roles() {
+        return {
             comments: {
-                read: rawNanny.pivot.comment_rights > 0,
-                write: rawNanny.pivot.comment_rights > 1,
+                read: this.commentsRole > 0,
+                write: this.commentsRole > 1,
             },
         };
     }

@@ -11,6 +11,18 @@ class NannyController extends Controller
 {
     use BabyTraits;
 
+    private function getFullNannyByUserId($baby, $userId) {
+        $baby->refresh();
+        $baby->nannies;
+        $newNanny = null;
+        foreach ($baby->nannies as $nanny) {
+            if ($nanny->pivot->user_id === $userId && $nanny->pivot->baby_id === $baby->id) {
+                $newNanny = $nanny;
+            }
+        }
+        return $newNanny;
+    }
+
     public function create(Request $request) {
         try {
             $request->validate([
@@ -45,15 +57,7 @@ class NannyController extends Controller
             'baby_id' => $baby->id
         ]);
 
-        $baby->refresh();
-        $baby->nannies;
-        $newNanny = null;
-        foreach ($baby->nannies as $nanny) {
-            if ($nanny->pivot->user_id === $request->user_id && $nanny->pivot->baby_id === $baby->id) {
-                $newNanny = $nanny;
-            }
-        }
-        return response($newNanny, 201);
+        return response($this->getFullNannyByUserId($baby, $request->user_id), 201);
     }
 
     public function update(Request $request, $id, $user_id) {
@@ -72,7 +76,7 @@ class NannyController extends Controller
         }
         $baby->nannies()->updateExistingPivot(intval($user_id), $attributes);
 
-        return response($this->populateBaby($baby, $request->user()), 200);
+        return response($this->getFullNannyByUserId($baby, intval($user_id)), 200);
     }
 
     public function delete(Request $request, $id, $user_id) {
@@ -85,6 +89,8 @@ class NannyController extends Controller
         }
         $baby->nannies()->detach($user_id);
 
-        return response($this->populateBaby($baby, $request->user()), 200);
+        return response([
+            'message' => 'Nanny deleted'
+        ], 200);
     }
 }

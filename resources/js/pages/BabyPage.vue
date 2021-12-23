@@ -5,11 +5,11 @@
             <p><strong>Né(e) le: </strong>{{ baby.formatedBirth }}</p>
             <p><strong>Parent : </strong>{{ baby.parent.name }}</p>
             <BabyNannies />
-            <BabyComments v-if="baby.comments" />
+            <BabyComments v-if="isUserParent || userRoles.comments.read" />
             <BabyUpdater v-if="isUserParent" />
-            <h5>Delete</h5>
-            <button v-if="isUserParent" @click="deleteBaby">Delete</button>
             <UserFinder v-if="isUserParent" @userSelected="addNanny" />
+            <h5 v-if="isUserParent">Delete</h5>
+            <button v-if="isUserParent" @click="deleteBaby">Delete</button>
         </div>
     </div>
 </template>
@@ -30,6 +30,7 @@ export default {
         }),
         ...mapGetters({
             isUserParent: "isUserParent",
+            userRoles: "userRoles",
         }),
     },
     beforeMount() {

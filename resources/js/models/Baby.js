@@ -1,4 +1,5 @@
 import { Nanny } from "./Nanny";
+import { BabyComment } from "./BabyComment";
 
 export class Baby {
     constructor(rawBaby) {
@@ -14,12 +15,9 @@ export class Baby {
         this.nannies = rawBaby.nannies.map((nanny) => new Nanny(nanny));
         this.comments = rawBaby.comments
             ? rawBaby.comments.map((comment) => {
-                  return {
-                      text: comment.text,
-                      created_at: comment.created_at,
-                  };
+                  return new BabyComment(comment);
               })
-            : null;
+            : [];
     }
 
     get createdAt() {
@@ -35,9 +33,5 @@ export class Baby {
     getUserRights(userId, category) {
         const nanny = this.nannies.find((elem) => elem.id === userId);
         return nanny && nanny.rights[category] ? nanny.rights[category] : 0;
-    }
-
-    addNanny(nanny) {
-        this.nannies.push(new Nanny(nanny));
     }
 }

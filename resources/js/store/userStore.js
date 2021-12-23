@@ -21,13 +21,19 @@ export const userStore = {
             state.token = value;
         },
         addBaby(state, baby) {
-            state.user.addBaby(baby);
+            state.user.babies.push(User.getBabyAsObject(baby));
         },
         removeBaby(state, babyId) {
-            state.user.removeBaby(babyId);
+            state.user.babies = state.user.babies.filter(
+                (elem) => elem.id !== babyId
+            );
         },
         updateBaby(state, baby) {
-            state.user.updateBaby(baby);
+            const babies = state.user.babies.filter(
+                (elem) => elem.id !== baby.id
+            );
+            babies.push(User.getBabyAsObject(baby));
+            state.user.babies = babies;
         },
     },
     actions: {

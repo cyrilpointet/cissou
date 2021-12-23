@@ -1,5 +1,7 @@
 import { ApiConsumer } from "../services/ApiConsumer";
 import { Baby } from "../models/Baby";
+import { nannyActions } from "./nannyActions";
+import { commentActions } from "./commentActions";
 
 export const babyStore = {
     namespaced: true,
@@ -11,11 +13,12 @@ export const babyStore = {
         setBaby(state, value) {
             state.baby = value;
         },
-        addNanny(state, nanny) {
-            state.baby.addNanny(nanny);
-        },
+        ...nannyActions.mutations,
+        ...commentActions.mutations,
     },
     actions: {
+        ...nannyActions.actions,
+        ...commentActions.actions,
         async getBaby(context, id) {
             const baby = await ApiConsumer.get(`baby/${id}`);
             context.commit("setBaby", new Baby(baby));
@@ -37,16 +40,6 @@ export const babyStore = {
             await ApiConsumer.delete(`baby/${id}`);
             context.commit("setBaby", null);
             context.commit("user/removeBaby", id, { root: true });
-            return;
-        },
-        async addNanny(context, values) {
-            const newNanny = await ApiConsumer.post(
-                `baby/${values.babyId}/nanny`,
-                {
-                    user_id: values.userId,
-                }
-            );
-            context.commit("addNanny", newNanny);
             return;
         },
     },

@@ -30,17 +30,4 @@ export class User {
     get allBabies() {
         return [...this.babies, ...this.pupils];
     }
-
-    addBaby(baby) {
-        this.babies.push(User.getBabyAsObject(baby));
-    }
-
-    removeBaby(babyId) {
-        this.babies = this.babies.filter((elem) => elem.id !== babyId);
-    }
-
-    updateBaby(baby) {
-        this.removeBaby(baby.id);
-        this.addBaby(baby);
-    }
 }
