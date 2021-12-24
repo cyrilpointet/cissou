@@ -1,9 +1,9 @@
 <template>
     <div>
         <h1>Register</h1>
-        <input v-model="name" placeholder="name" />
-        <input v-model="email" placeholder="email" />
-        <input v-model="password" placeholder="password" />
+        <input type="text" v-model="name" placeholder="name" />
+        <input type="text" v-model="email" placeholder="email" />
+        <input type="pasword" v-model="password" placeholder="password" />
         <button @click="login">login</button>
     </div>
 </template>

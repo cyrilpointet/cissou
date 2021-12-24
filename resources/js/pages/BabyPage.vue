@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="baby">
-            <h1>{{ baby.name }}</h1>
+            <h1 class="title">{{ baby.name }}</h1>
             <p><strong>Né(e) le: </strong>{{ baby.formatedBirth }}</p>
             <p><strong>Parent : </strong>{{ baby.parent.name }}</p>
             <BabyNannies />

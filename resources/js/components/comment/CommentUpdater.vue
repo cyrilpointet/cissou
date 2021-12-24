@@ -1,7 +1,7 @@
 <template>
     <div>
         <h5>Update Comment</h5>
-        <input v-model="text" placeholder="email" />
+        <input type="text" v-model="text" placeholder="email" />
         <button @click="updateComment">valider</button>
     </div>
 </template>

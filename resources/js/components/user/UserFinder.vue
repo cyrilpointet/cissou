@@ -1,7 +1,7 @@
 <template>
     <div>
         <h5>Add nanny</h5>
-        <input v-model="email" placeholder="email" />
+        <input type="text" v-model="email" placeholder="email" />
         <button @click="findUser">chercher</button>
         <p v-if="!userByMail">personne</p>
         <div v-else>

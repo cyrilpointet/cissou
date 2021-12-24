@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4>Nannies</h4>
+        <h4 class="subtitle">Nannies</h4>
         <div v-if="baby.nannies.length > 0">
             <div v-for="nanny in baby.nannies" :key="nanny.id">
                 <div style="display: flex; gap: 1rem">

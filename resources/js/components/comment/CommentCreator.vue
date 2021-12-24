@@ -1,7 +1,7 @@
 <template>
     <div>
         <h5>Add comment</h5>
-        <input v-model="text" placeholder="email" />
+        <input type="text" v-model="text" placeholder="texte" />
         <button @click="addComment">créer</button>
     </div>
 </template>
