@@ -1,21 +1,27 @@
 <template>
     <div>
-        <h4>Comments</h4>
-        <div v-for="comment in baby.comments" :key="comment.id">
-            <p>
-                {{ comment.text }}
-            </p>
-            <CommentUpdater
-                v-if="isUserParent || userRoles.comments.write"
-                :comment="comment"
-            />
-            <button
-                v-if="isUserParent || userRoles.comments.write"
-                @click="deleteComment(comment.id)"
-            >
-                Delete
-            </button>
-        </div>
+        <h4 class="subtitle">Comments</h4>
+        <ul class="list">
+            <li v-for="comment in baby.comments" :key="comment.id">
+                <span class="flex">
+                    <p class="grow">
+                        {{ comment.text }}
+                    </p>
+                    <button
+                        icon
+                        v-if="isUserParent || userRoles.comments.write"
+                        @click="deleteComment(comment.id)"
+                    >
+                        <span class="material-icons">delete</span>
+                    </button>
+                </span>
+
+                <CommentUpdater
+                    v-if="isUserParent || userRoles.comments.write"
+                    :comment="comment"
+                />
+            </li>
+        </ul>
 
         <div v-if="baby.comments.length < 1">
             <p>Pas de commentaire</p>

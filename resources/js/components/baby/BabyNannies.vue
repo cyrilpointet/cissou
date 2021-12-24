@@ -1,17 +1,24 @@
 <template>
     <div>
         <h4 class="subtitle">Nannies</h4>
-        <div v-if="baby.nannies.length > 0">
-            <div v-for="nanny in baby.nannies" :key="nanny.id">
-                <div style="display: flex; gap: 1rem">
-                    <p>
+        <ul class="list" v-if="baby.nannies.length > 0">
+            <li v-for="nanny in baby.nannies" :key="nanny.id">
+                <span class="flex">
+                    <p class="grow">
                         {{ nanny.name }}
                     </p>
-                    <button @click="removeNanny(nanny.id)">delete</button>
-                </div>
-                <NannyUpdater :nanny="nanny" />
-            </div>
-        </div>
+                    <button
+                        icon
+                        v-if="isUserParent"
+                        @click="removeNanny(nanny.id)"
+                    >
+                        <span class="material-icons">delete</span>
+                    </button>
+                </span>
+
+                <NannyUpdater v-if="isUserParent" :nanny="nanny" />
+            </li>
+        </ul>
         <div v-if="baby.nannies.length < 1">
             <p>Pas de nannie</p>
         </div>
@@ -32,6 +39,7 @@ export default {
         }),
         ...mapGetters({
             isLogged: "user/isLogged",
+            isUserParent: "isUserParent",
         }),
     },
     methods: {

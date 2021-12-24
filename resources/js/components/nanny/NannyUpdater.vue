@@ -1,17 +1,20 @@
 <template>
     <div>
-        <label radio
-            >zero
-            <input type="radio" value="0" v-model="commentsRole" />
-        </label>
-        <label radio
-            >Un
-            <input type="radio" id="one" value="1" v-model="commentsRole" />
-        </label>
-        <label radio
-            >Deux
-            <input type="radio" id="two" value="2" v-model="commentsRole" />
-        </label>
+        <div class="flex gap-2">
+            <label radio
+                >zero
+                <input type="radio" value="0" v-model="commentsRole" />
+            </label>
+            <label radio
+                >Un
+                <input type="radio" id="one" value="1" v-model="commentsRole" />
+            </label>
+            <label radio
+                >Deux
+                <input type="radio" id="two" value="2" v-model="commentsRole" />
+            </label>
+        </div>
+
         <button @click="updateNanny">valider</button>
     </div>
 </template>

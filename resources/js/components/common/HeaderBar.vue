@@ -4,8 +4,12 @@
             <h4 class="grow title">
                 coucou {{ isLogged ? user.name : "new mum" }}
             </h4>
-            <router-link to="/" class="subtitle">Accueil</router-link>
-            <router-link to="login" class="subtitle ml-4">Login</router-link>
+            <router-link to="/">
+                <span class="material-icons">home</span>
+            </router-link>
+            <router-link to="login" class="ml-4">
+                <span class="material-icons">face</span>
+            </router-link>
             <button v-if="isLogged" @click="logout">logout</button>
         </div>
     </header>

@@ -4,6 +4,9 @@
 
 button {
     @apply rounded-full bg-primary text-center py-2 px-4 text-white uppercase;
+    &[icon] {
+        @apply flex items-center justify-center p-2;
+    }
 }
 
 .title {
@@ -19,12 +22,12 @@ strong {
 }
 
 label {
-    @apply flex flex-col font-bold text-sm gap-1;
+    @apply flex flex-col text-sm gap-1;
     &[radio] {
-        @apply flex-row items-center gap-2 font-normal;
+        @apply flex-row items-center gap-2 cursor-pointer;
     }
     span {
-        @apply text-error italic text-base font-normal;
+        @apply text-error italic text-base;
     }
 }
 
@@ -44,13 +47,18 @@ input[type=datetime-local] {
 }
 
 input[type=radio] {
-    @apply appearance-none border border-gray rounded-full w-4 h-4 relative;
+    @apply appearance-none border border-gray rounded-full w-4 h-4 relative cursor-pointer;
     &:checked {
         &:before {
-            @apply bg-primary rounded-full inset-0;
+            @apply block absolute bg-primary rounded-full inset-0;
             content: '';
-            display: block;
-            position: absolute;
         }
+    }
+}
+
+.list {
+    @apply flex flex-col border-t border-gray;
+    li {
+        @apply py-2 border-b border-gray;
     }
 }
