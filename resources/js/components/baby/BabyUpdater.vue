@@ -1,13 +1,20 @@
 <template>
-    <div>
-        <h5>Update Baby</h5>
-        <input type="text" v-model="name" placeholder="Nom" />
-        <input
-            type="datetime-local"
-            v-model="birth"
-            :max="new Date().toISOString().slice(0, 16)"
-        />
-        <button @click="updateBaby">Update</button>
+    <div class="flex flex-col md:flex-row gap-4 items-center">
+        <label class="grow w-full md:w-auto"
+            >Nom
+            <input type="text" v-model="name" placeholder="Nom" />
+        </label>
+        <label class="grow w-full md:w-auto"
+            >Date de naissance
+            <input
+                type="datetime-local"
+                v-model="birth"
+                :max="new Date().toISOString().slice(0, 16)"
+            />
+        </label>
+        <button icon @click="updateBaby" class="md:mt-4">
+            <span class="material-icons">done</span>
+        </button>
     </div>
 </template>
 
@@ -20,6 +27,7 @@ export default {
         return {
             name: "",
             birth: new Date().toISOString().slice(0, 16),
+            ajaxPending: false,
         };
     },
     computed: {
@@ -33,11 +41,18 @@ export default {
     },
     methods: {
         async updateBaby() {
-            await this.$store.dispatch("baby/updateBaby", {
-                name: this.name,
-                birth: this.birth,
-                id: this.baby.id,
-            });
+            this.ajaxPending = false;
+            try {
+                await this.$store.dispatch("baby/updateBaby", {
+                    name: this.name,
+                    birth: this.birth,
+                    id: this.baby.id,
+                });
+                this.$emit("done");
+            } catch (e) {
+                console.log(e);
+            }
+            this.ajaxPending = true;
         },
     },
 };

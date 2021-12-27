@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h5 class="subtitle">Ajouter un commentaire</h5>
         <div class="flex gap-4 items-center mt-2">
             <input
                 type="text"
@@ -43,6 +42,7 @@ export default {
             } catch (e) {
                 console.log(e);
             }
+            this.$emit("done");
             this.ajaxPending = false;
         },
     },

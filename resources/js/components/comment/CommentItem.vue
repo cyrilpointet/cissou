@@ -1,34 +1,32 @@
 <template>
-    <div class="main">
-        <div class="flex items-center gap-4">
+    <EditableAccordion
+        ref="accordion"
+        @delete="deleteComment(comment.id)"
+        :editable="canEdit"
+    >
+        <template v-slot:title>
             <p class="grow">
-                {{ this.comment.text }}
+                {{ comment.text }}
             </p>
-            <button icon v-if="canEdit" @click="toggleAccordion(comment.id)">
-                <span class="material-icons">edit</span>
-            </button>
-            <button icon v-if="canEdit" @click="deleteComment(comment.id)">
-                <span class="material-icons">delete</span>
-            </button>
-        </div>
-        <div class="panel" ref="panel" :style="{ maxHeight: panelMaxHeight }">
+        </template>
+        <template v-slot:body>
             <CommentUpdater
-                @done="toggleAccordion"
-                v-if="canEdit"
+                @done="$refs.accordion.toggle()"
                 :comment="comment"
             />
-        </div>
-    </div>
+        </template>
+    </EditableAccordion>
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
 import CommentUpdater from "./CommentUpdater";
+import EditableAccordion from "../common/EditableAccordion";
 
 export default {
     name: "comment-item",
     props: ["comment"],
-    components: { CommentUpdater },
+    components: { CommentUpdater, EditableAccordion },
     data: () => {
         return {
             panelMaxHeight: 0,
@@ -48,13 +46,6 @@ export default {
         },
     },
     methods: {
-        toggleAccordion() {
-            if (this.panelMaxHeight !== 0) {
-                this.panelMaxHeight = 0;
-            } else {
-                this.panelMaxHeight = this.$refs.panel.scrollHeight + "px";
-            }
-        },
         async deleteComment(commentId) {
             await this.$store.dispatch("baby/removeComment", {
                 commentId: commentId,
@@ -64,14 +55,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" scoped>
-.main {
-    transition: 0.4s;
-}
-.panel {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-}
-</style>

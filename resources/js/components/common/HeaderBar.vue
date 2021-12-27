@@ -1,6 +1,6 @@
 <template>
     <header class="header">
-        <div class="main">
+        <div class="main px-2 md:px-0">
             <h4 class="grow title">
                 {{ isLogged ? user.name : "Cissou" }}
             </h4>

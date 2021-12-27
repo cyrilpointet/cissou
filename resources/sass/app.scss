@@ -44,7 +44,8 @@ label {
 input[type=text],
 input[type=password],
 input[type=email],
-input[type=datetime-local] {
+input[type=datetime-local],
+input[type=date] {
     @apply p-2 border border-gray border-solid rounded-lg text-base;
     transition: border-color .2s;
     &:focus {

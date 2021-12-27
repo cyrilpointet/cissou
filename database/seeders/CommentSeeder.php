@@ -24,13 +24,13 @@ class CommentSeeder extends Seeder
 
         Comment::create([
             'text' => 'comment readonly',
-            'user_id' => 1,
+            'user_id' => 2,
             'baby_id' => 3
         ]);
 
         Comment::create([
             'text' => 'comment invisible',
-            'user_id' => 1,
+            'user_id' => 2,
             'baby_id' => 4
         ]);
     }

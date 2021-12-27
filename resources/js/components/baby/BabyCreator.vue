@@ -1,22 +1,24 @@
 <template>
     <div>
-        <h3 class="subtitle">Ajouter Baby</h3>
         <form>
-            <label
-                >Nom
-                <input type="text" v-model="name" placeholder="Nom" />
-            </label>
+            <div class="mt-2 flex flex-col md:flex-row gap-4 items-center">
+                <label class="grow w-full md:w-auto"
+                    >Nom
+                    <input type="text" v-model="name" placeholder="Nom" />
+                </label>
 
-            <label
-                >Date de naissance
-                <input
-                    type="datetime-local"
-                    v-model="birth"
-                    :max="new Date().toISOString().slice(0, 16)"
-                />
-            </label>
-
-            <button @click.prevent="createBaby">Valider</button>
+                <label class="grow w-full md:w-auto"
+                    >Date de naissance
+                    <input
+                        type="date"
+                        v-model="birth"
+                        :max="new Date().toISOString().slice(0, 16)"
+                    />
+                </label>
+            </div>
+            <div class="flex justify-center mt-4">
+                <button @click.prevent="createBaby">valider</button>
+            </div>
         </form>
     </div>
 </template>

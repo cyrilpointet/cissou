@@ -34,7 +34,7 @@ class EnsureHasCommentsWriteRights
             ], 401);
         }
 
-        if ($nanny->comment_rights < 2) {
+        if (null !== $nanny && $nanny->comment_rights < 2) {
             return response([
                 "message" => "Insuffisant rights"
             ], 401);

@@ -5,16 +5,19 @@
             <li v-for="comment in baby.comments" :key="comment.id">
                 <CommentItem :comment="comment" />
             </li>
-        </ul>
+            <li v-if="baby.comments.length < 1">Pas de commentaire</li>
 
-        <ul class="list" v-if="baby.comments.length < 1">
-            <li>Pas de commentaire</li>
+            <li v-if="isUserParent || userRoles.comments.write">
+                <Accordion ref="accordion">
+                    <template v-slot:title>
+                        <strong class="grow">Ajouter un commentaire</strong>
+                    </template>
+                    <template v-slot:body>
+                        <CommentCreator @done="$refs.accordion.toggle()" />
+                    </template>
+                </Accordion>
+            </li>
         </ul>
-
-        <CommentCreator
-            class="mt-8"
-            v-if="isUserParent || userRoles.comments.write"
-        />
     </div>
 </template>
 
@@ -22,10 +25,11 @@
 import { mapGetters, mapState } from "vuex";
 import CommentCreator from "../comment/CommentCreator";
 import CommentItem from "../comment/CommentItem";
+import Accordion from "../common/Accordion";
 
 export default {
     name: "baby-comments",
-    components: { CommentCreator, CommentItem },
+    components: { CommentCreator, CommentItem, Accordion },
     computed: {
         ...mapState({
             baby: (state) => state.baby.baby,
