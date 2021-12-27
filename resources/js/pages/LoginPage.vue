@@ -1,10 +1,14 @@
 <template>
-    <div>
+    <div class="w-96 mx-auto mt-12 flex flex-col gap-8">
         <Login v-if="hasAccount" />
         <Register v-else />
-        <button @click="hasAccount = !hasAccount">
-            {{ hasAccount ? "Je n'ai pas de compte" : "J'ai déjà un compte" }}
-        </button>
+        <span class="flex justify-center">
+            <button small @click="hasAccount = !hasAccount">
+                {{
+                    hasAccount ? "Je n'ai pas de compte" : "J'ai déjà un compte"
+                }}
+            </button>
+        </span>
     </div>
 </template>
 

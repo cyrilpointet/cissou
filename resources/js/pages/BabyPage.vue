@@ -1,10 +1,10 @@
 <template>
     <div>
         <div v-if="baby">
-            <h1 class="title">{{ baby.name }}</h1>
+            <h1 class="title mt-8">{{ baby.name }}</h1>
             <p><strong>Né(e) le: </strong>{{ baby.formatedBirth }}</p>
-            <p><strong>Parent : </strong>{{ baby.parent.name }}</p>
-            <BabyNannies />
+            <p class="mb-8"><strong>Parent : </strong>{{ baby.parent.name }}</p>
+            <BabyNannies class="mb-8" />
             <BabyComments v-if="isUserParent || userRoles.comments.read" />
             <BabyUpdater v-if="isUserParent" />
             <UserFinder v-if="isUserParent" @userSelected="addNanny" />

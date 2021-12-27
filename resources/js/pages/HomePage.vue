@@ -1,8 +1,7 @@
 <template>
     <div>
-        <h1 class="title mb-4">Home</h1>
-        <h2 class="subtitle mb-4">Babies</h2>
-        <ul class="list mb-4">
+        <h2 class="subtitle mt-12 mb-4">Babies</h2>
+        <ul class="list clickable mb-4">
             <li
                 v-for="baby in user.allBabies"
                 :key="baby.id"

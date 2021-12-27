@@ -2,11 +2,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-button {
-    @apply rounded-full bg-primary text-center py-2 px-4 text-white uppercase;
-    &[icon] {
-        @apply flex items-center justify-center p-2;
-    }
+* {
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .title {
@@ -19,6 +16,19 @@ button {
 
 strong {
     @apply font-bold;
+}
+
+button {
+    @apply rounded-full bg-primary text-center py-2 px-4 text-white uppercase;
+    &[icon] {
+        @apply flex items-center justify-center p-2;
+    }
+    &[small] {
+        @apply  py-1 px-2 text-sm;
+    }
+    &[disabled] {
+        @apply bg-gray;
+    }
 }
 
 label {
@@ -59,6 +69,15 @@ input[type=radio] {
 .list {
     @apply flex flex-col border-t border-gray;
     li {
-        @apply py-2 border-b border-gray;
+        @apply p-2 border-b border-gray;
+    }
+    &.clickable {
+        li {
+            cursor: pointer;
+            transition: background-color .2s linear;
+            &:hover {
+                @apply bg-lightgray;
+            }
+        }
     }
 }

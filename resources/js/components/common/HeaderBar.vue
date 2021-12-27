@@ -2,15 +2,17 @@
     <header class="header">
         <div class="main">
             <h4 class="grow title">
-                coucou {{ isLogged ? user.name : "new mum" }}
+                {{ isLogged ? user.name : "Cissou" }}
             </h4>
-            <router-link to="/">
-                <span class="material-icons">home</span>
+            <router-link v-if="isLogged" to="/">
+                <button icon>
+                    <span class="material-icons">home</span>
+                </button>
             </router-link>
-            <router-link to="login" class="ml-4">
-                <span class="material-icons">face</span>
-            </router-link>
-            <button v-if="isLogged" @click="logout">logout</button>
+
+            <button icon v-if="isLogged" @click="logout">
+                <span class="material-icons">logout</span>
+            </button>
         </div>
     </header>
 </template>
@@ -42,6 +44,6 @@ export default {
     @apply bg-primary text-white;
 }
 .main {
-    @apply container mx-auto bg-primary text-white flex items-center py-2;
+    @apply container mx-auto bg-primary text-white flex items-center py-2 gap-4;
 }
 </style>

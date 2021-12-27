@@ -1,8 +1,14 @@
 <template>
-    <div>
-        <h5>Update Comment</h5>
-        <input type="text" v-model="text" placeholder="email" />
-        <button @click="updateComment">valider</button>
+    <div class="flex gap-4 mt-4">
+        <input
+            type="text"
+            class="grow"
+            v-model="text"
+            placeholder="Commentaire"
+        />
+        <button icon @click="updateComment" :disabled="ajaxPending">
+            <span class="material-icons">done</span>
+        </button>
     </div>
 </template>
 
@@ -15,6 +21,7 @@ export default {
     data: () => {
         return {
             text: "",
+            ajaxPending: false,
         };
     },
     computed: {
@@ -27,6 +34,7 @@ export default {
     },
     methods: {
         async updateComment() {
+            this.ajaxPending = true;
             try {
                 await this.$store.dispatch("baby/updateComment", {
                     text: this.text,
@@ -36,6 +44,8 @@ export default {
             } catch (e) {
                 console.log(e);
             }
+            this.ajaxPending = false;
+            this.$emit("done");
         },
     },
 };

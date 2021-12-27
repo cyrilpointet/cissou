@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <h1>Login</h1>
+    <div class="flex flex-col gap-8">
+        <h1 class="title text-center">Me connecter</h1>
         <input type="text" v-model="email" placeholder="email" />
         <input type="password" v-model="password" placeholder="password" />
-        <button @click="login">login</button>
+        <button @click="login">valider</button>
     </div>
 </template>
 
