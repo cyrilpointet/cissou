@@ -14,6 +14,10 @@
     @apply text-xl capitalize font-bold;
 }
 
+.caption {
+    @apply text-sm;
+}
+
 strong {
     @apply font-bold;
 }
@@ -80,5 +84,16 @@ input[type=radio] {
                 @apply bg-lightgray;
             }
         }
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+
+    50% {
+        opacity: 1;
     }
 }

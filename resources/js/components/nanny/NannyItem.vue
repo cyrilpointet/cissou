@@ -7,7 +7,7 @@
             <button icon v-if="isUserParent" @click="toggleAccordion()">
                 <span class="material-icons">edit</span>
             </button>
-            <button icon v-if="isUserParent" @click="removeNanny(nanny.id)">
+            <button icon v-if="isUserParent" @click="confirmDelete()">
                 <span class="material-icons">delete</span>
             </button>
         </div>
@@ -24,6 +24,7 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import NannyUpdater from "./NannyUpdater";
+import { EventBus } from "../../services/EventBus";
 
 export default {
     name: "nanny-item",
@@ -50,6 +51,15 @@ export default {
             } else {
                 this.panelMaxHeight = this.$refs.panel.scrollHeight + "px";
             }
+        },
+        confirmDelete() {
+            EventBus.$emit("openConfirmModal", {
+                title: "Supprimer",
+                content: "Voulez-vous retirer les droits à la nounou ?",
+                action: () => {
+                    this.removeNanny();
+                },
+            });
         },
         async removeNanny() {
             await this.$store.dispatch("baby/removeNanny", {

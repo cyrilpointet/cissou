@@ -1,15 +1,32 @@
 <template>
     <div>
-        <h5>Add nanny</h5>
-        <input type="text" v-model="email" placeholder="email" />
-        <button @click="findUser">chercher</button>
-        <p v-if="!userByMail">personne</p>
-        <div v-else>
-            <p>{{ userByMail.name }}</p>
-            <p>{{ userByMail.email }}</p>
-            <button @click="$emit('userSelected', userByMail.id)">
-                Ajouter
+        <div class="flex items-center gap-4">
+            <label class="grow"
+                >Email
+                <input
+                    @keydown="hasSearched = false"
+                    type="email"
+                    v-model="email"
+                    placeholder="email"
+                />
+            </label>
+
+            <button icon @click="findUser" class="mt-4">
+                <span class="material-icons">search</span>
             </button>
+        </div>
+
+        <div v-if="hasSearched">
+            <div v-if="!userByMail">
+                <p>Aucun utilisateur correspondant à cet email</p>
+            </div>
+            <div v-else>
+                <p>{{ userByMail.name }}</p>
+                <p>{{ userByMail.email }}</p>
+                <button @click="$emit('userSelected', userByMail.id)">
+                    Ajouter
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -23,18 +40,21 @@ export default {
         return {
             email: "",
             userByMail: null,
+            hasSearched: false,
         };
     },
     methods: {
         async findUser() {
+            this.userByMail = null;
             try {
                 const userByMail = await ApiConsumer.post("find", {
                     email: this.email,
                 });
                 this.userByMail = userByMail;
-            } catch (e) {
-                console.log(e);
+            } catch (error) {
+                console.log(error.response.status);
             }
+            this.hasSearched = true;
         },
     },
 };

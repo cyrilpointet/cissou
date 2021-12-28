@@ -86,6 +86,11 @@ class UserController extends Controller
             ], 400);
         }
         $user = User::where('email', '=', $request->email)->first();
+        if (null === $user) {
+            return response([
+                'message' => ['No such user']
+            ], 404);
+        }
         return response($user, 200);
     }
 }

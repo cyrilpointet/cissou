@@ -6,7 +6,7 @@
             </h4>
             <router-link v-if="isLogged" to="/">
                 <button icon>
-                    <span class="material-icons">home</span>
+                    <span class="material-icons">settings</span>
                 </button>
             </router-link>
 

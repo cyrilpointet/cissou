@@ -10,52 +10,29 @@
                 <p>{{ baby.name }} - {{ baby.formatedBirth }}</p>
             </li>
         </ul>
-
-        <div class="updaterMain">
-            <div
-                class="flex cursor-pointer"
-                @click="creatorOpen = !creatorOpen"
-            >
-                <h5 class="subtitle grow">Ajouter un Bébé</h5>
-                <span
-                    class="material-icons rotating"
-                    :class="{ active: creatorOpen }"
-                >
-                    expand_more
-                </span>
-            </div>
-            <div
-                class="creatorContent"
-                ref="creator"
-                :style="{ maxHeight: creatorMaxHeight }"
-            >
-                <BabyCreator />
-            </div>
-        </div>
+        <Accordion ref="accordion" class="p-2 border-t border-b border-gray">
+            <template v-slot:title>
+                <strong class="subtitle grow">Ajouter un Bébé</strong>
+            </template>
+            <template v-slot:body>
+                <BabyCreator @done="$refs.accordion.toggle()" />
+            </template>
+        </Accordion>
     </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import BabyCreator from "../components/baby/BabyCreator";
+import Accordion from "../components/common/Accordion";
 
 export default {
     name: "home-page",
-    components: { BabyCreator },
-    data: () => {
-        return {
-            creatorOpen: false,
-        };
-    },
+    components: { BabyCreator, Accordion },
     computed: {
         ...mapState({
             user: (state) => state.user.user,
         }),
-        creatorMaxHeight() {
-            return this.creatorOpen
-                ? this.$refs.creator.scrollHeight + "px"
-                : "0px";
-        },
     },
     methods: {
         goToBaby(id) {
@@ -67,13 +44,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" scoped>
-.updaterMain {
-    @apply border-y border-gray py-2 mb-8;
-}
-.creatorContent {
-    transition: max-height 0.2s linear;
-    overflow: hidden;
-}
-</style>

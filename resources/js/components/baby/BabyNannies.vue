@@ -1,23 +1,16 @@
 <template>
     <div>
         <h4 class="subtitle">Nounous</h4>
-        <ul class="list" v-if="baby.nannies.length > 0">
+        <ul class="list">
             <li v-for="nanny in baby.nannies" :key="nanny.id">
                 <NannyItem :nanny="nanny"></NannyItem>
             </li>
             <li v-if="baby.nannies.length < 1">Aucune nounou</li>
-
-            <li v-if="isUserParent">
-                <Accordion ref="accordion">
-                    <template v-slot:title>
-                        <strong class="grow">Ajouter une nounou</strong>
-                    </template>
-                    <template v-slot:body>
-                        <UserFinder @userSelected="addNanny" />
-                    </template>
-                </Accordion>
-            </li>
         </ul>
+        <div v-if="isUserParent" class="mt-4">
+            <h4 class="subtitle mb-2">Ajouter une nounou</h4>
+            <UserFinder @userSelected="addNanny" />
+        </div>
     </div>
 </template>
 
@@ -25,11 +18,10 @@
 import { mapGetters, mapState } from "vuex";
 import NannyItem from "../nanny/NannyItem";
 import UserFinder from "../user/UserFinder";
-import Accordion from "../common/Accordion";
 
 export default {
     name: "baby-nannies",
-    components: { NannyItem, UserFinder, Accordion },
+    components: { NannyItem, UserFinder },
     computed: {
         ...mapState({
             user: (state) => state.user.user,
